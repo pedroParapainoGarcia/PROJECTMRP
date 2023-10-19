@@ -326,8 +326,14 @@ return [
                     'route'  => 'admin.productos.index',
                     'icon' => 'fas fa-shipping-fast',
                 ],
+                [
+                    'text' => 'Registro Proveedores',
+                    'route'  => 'admin.proveedor.index',
+                    'icon' => 'fas fa-shipping-fast',
+                ],
             ],
         ],
+        
     ],
 
     /*

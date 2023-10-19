@@ -32,14 +32,7 @@
             
             
 
-            <td>
-                @foreach($categorias as $categoria)
-                @if($producto->id_categoria == $categoria->id)
-                {{-- <h5><span class="badge badge-dark">{{$categoria->nombres}}</span></h5> --}}
-                <h6><span>{{$categoria->nombres}}</span></h6>
-                @endif
-                @endforeach
-            </td>
+            <td>{{$producto->categorias->nombres}}</td>
 
             <td>
                 <form action="{{ route ('admin.productos.destroy',$producto->id)}}" method="POST">
