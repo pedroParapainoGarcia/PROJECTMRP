@@ -63,8 +63,9 @@ return [
     |
     */
 
-    'logo' => '<b>MR</b>P',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b></b>',
+    // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/mrplogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -84,9 +85,10 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/mrplogo.png',
+            'path_class' => 'brand-image img-circle elevation-3',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 130,
@@ -167,12 +169,19 @@ return [
     |
     */
 
-    'classes_auth_card' => 'bg-gradient-dark',
+    // 'classes_auth_card' => 'bg-gradient-dark',
+    // 'classes_auth_header' => '',
+    // 'classes_auth_body' => 'bg-gradient-dark',
+    // 'classes_auth_footer' => 'text-center',
+    // 'classes_auth_icon' => 'fa-fw text-light',
+    // 'classes_auth_btn' => 'btn-flat btn-light',
+
+    'classes_auth_card' => 'card-outline card-primary',
     'classes_auth_header' => '',
-    'classes_auth_body' => 'bg-gradient-dark',
+    'classes_auth_body' => '',
     'classes_auth_footer' => 'text-center',
     'classes_auth_icon' => 'fa-fw text-light',
-    'classes_auth_btn' => 'btn-flat btn-light',
+    'classes_auth_btn' => 'btn-flat btn-primary',
 
     /*
     |--------------------------------------------------------------------------
@@ -192,7 +201,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-light-primary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
