@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CategoriaController;
 use App\Http\Controllers\Api\ProductoController;
+use App\Http\Controllers\Api\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

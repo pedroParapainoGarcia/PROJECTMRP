@@ -303,8 +303,8 @@ return [
         [
             
             'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => false,
+            'text'         => 'Busqueda',
+            'topnav_right' => true,
         ],
         [
             'type'         => 'fullscreen-widget',
@@ -317,6 +317,12 @@ return [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
+        ],
+
+        [
+            'text'  => 'Usuarios',
+            'route' => 'admin.users.index',
+            'icon'  => 'fas fa-users fa-fw',
         ],
         
         ['header' => 'Modulos'],
@@ -338,6 +344,69 @@ return [
                 [
                     'text' => 'Registro Proveedores',
                     'route'  => 'admin.proveedor.index',
+                    'icon' => 'fas fa-shipping-fast',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Operaciones',
+            'icon'        => 'fas fa-warehouse',
+            'submenu' => [
+                [
+                    'text' => 'Orden de Produccion',
+                    //'route'  => '',
+                    'icon' => 'fab fa-fw fa-buffer',
+                ],          
+                [
+                    'text' => 'Programación de Produccion',
+                    //'route'  => '',
+                    'icon' => 'fas fa-shipping-fast',
+                ],
+                [
+                    'text' => 'Seguimiento de Envio',
+                    //'route'  => '',
+                    'icon' => 'fas fa-shipping-fast',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Planificación',
+            'icon'        => 'fas fa-warehouse',
+            'submenu' => [
+                [
+                    'text' => 'Control de Calidad',
+                    //'route'  => '',
+                    'icon' => 'fab fa-fw fa-buffer',
+                ],          
+                [
+                    'text' => 'Planificación por Producción',
+                    //'route'  => '',
+                    'icon' => 'fas fa-shipping-fast',
+                ],
+                [
+                    'text' => 'Recurso de Producción',
+                    //'route'  => '',
+                    'icon' => 'fas fa-shipping-fast',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Informe',
+            'icon'        => 'fas fa-warehouse',
+            'submenu' => [
+                [
+                    'text' => 'Orden de Produccion',
+                    //'route'  => '',
+                    'icon' => 'fab fa-fw fa-buffer',
+                ],          
+                [
+                    'text' => 'Planificación de Produccion',
+                    //'route'  => '',
+                    'icon' => 'fas fa-shipping-fast',
+                ],
+                [
+                    'text' => 'Costo de Producción',
+                    //'route'  => '',
                     'icon' => 'fas fa-shipping-fast',
                 ],
             ],
@@ -497,5 +566,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];
