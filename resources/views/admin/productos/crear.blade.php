@@ -30,22 +30,24 @@
 
    
     <div class="col-xs-12 col-sm-12 col-md-6">
-      <label for="id_cliente">Categoria</label>
-      <select required class="form-control" name="id_categoria" id="id_categoria">
-          @foreach($categorias as $categoria)
-          
-          <option value="{{$categoria->id}}">{{$categoria->nombres}}</option>
-          @endforeach
-      </select>
-    </div>
-
-
-  
-
+      <div class="form-group">
+        <label for="id_cliente">Categoria</label>
+          <select required class="form-control" name="id_categoria" id="id_categoria">
+              @foreach($categorias as $categoria)
+              
+              <option value="{{$categoria->id}}">{{$categoria->nombres}}</option>
+              @endforeach
+         </select>
+      </div>
+   </div>
    
   </div>
-  <a href="{{ route('admin.productos.index')}}" class="btn btn-secondary" tabindex="3">Cancelar</a>
-  <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+  
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <a href="{{ route('admin.productos.index')}}" class="btn btn-secondary">Cancelar</a>
+      <button type="submit" class="btn btn-primary ">Guardar</button>
+    </div>
+
 </form>
 @stop
 

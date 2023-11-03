@@ -319,17 +319,31 @@ return [
             'can'  => 'manage-blog',
         ],
 
-        [
-            'text'  => 'Usuarios',
-            'route' => 'admin.users.index',
-            'icon'  => 'fas fa-users fa-fw',
-        ],
-        
+      
         ['header' => 'Modulos'],
+        [
+            'text'  => 'Registro de Usuarios',            
+            'icon' => 'fas fa-users fa-lock',
+            
+            'submenu' => [
+                [
+                    'text' => 'Usuarios',
+                    'route' => 'admin.usuarios.index',
+                    'icon' => '  fas fa-user-plus',
+                ],          
+                [
+                    'text' => 'Roles',
+                    'route'  => 'admin.roles.index',
+                    'icon' => 'fas fa-address-card',
+                ],
+                
+            ],
+        ],       
       
         [
             'text'    => 'Registro Materiales',
-            'icon'        => 'fas fa-warehouse',
+            'icon'        => 'fas fa-money-check-edit', 
+                    
             'submenu' => [
                 [
                     'text' => 'Registro Categorias',
@@ -392,7 +406,7 @@ return [
         ],
         [
             'text'    => 'Informe',
-            'icon'        => 'fas fa-warehouse',
+            'icon'        => 'fa-solid fa-chart-simple',           
             'submenu' => [
                 [
                     'text' => 'Orden de Produccion',
