@@ -324,17 +324,21 @@ return [
         [
             'text'  => 'Registro de Usuarios',            
             'icon' => 'fas fa-users fa-lock',
+            'can'   => 'admin.usuarios.index',
+
             
             'submenu' => [
                 [
                     'text' => 'Usuarios',
                     'route' => 'admin.usuarios.index',
                     'icon' => '  fas fa-user-plus',
+                    'can'   => 'admin.usuarios.index',
                 ],          
                 [
                     'text' => 'Roles',
                     'route'  => 'admin.roles.index',
                     'icon' => 'fas fa-address-card',
+                    'can'   => 'admin.roles.index',
                 ],
                 
             ],
@@ -342,23 +346,27 @@ return [
       
         [
             'text'    => 'Registro Materiales',
-            'icon'        => 'fas fa-money-check-edit', 
+            'icon'        => 'fas fa-warehouse',
+            'can'   => 'admin.categorias.index', 
                     
             'submenu' => [
                 [
                     'text' => 'Registro Categorias',
                     'route'  => 'admin.categorias.index',
                     'icon' => 'fab fa-fw fa-buffer',
+                    'can'   => 'admin.categorias.index'
                 ],          
                 [
                     'text' => 'Registro Productos',
                     'route'  => 'admin.productos.index',
                     'icon' => 'fas fa-shipping-fast',
+                    'can'   => 'admin.productos.index'
                 ],
                 [
                     'text' => 'Registro Proveedores',
                     'route'  => 'admin.proveedor.index',
                     'icon' => 'fas fa-shipping-fast',
+                    'can'   => 'admin.proveedores.index'
                 ],
             ],
         ],
@@ -580,5 +588,5 @@ return [
     |
     */
 
-    'livewire' => true,
+    'livewire' => false,
 ];
