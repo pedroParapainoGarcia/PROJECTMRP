@@ -40,17 +40,15 @@ class RolController extends Controller
 
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'required|unique:roles,name',
-        //     'permission' => 'required',
-        // ]);      
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name',
+            'permission' => 'required',
+        ]);     
         
 
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
-
-        
-    
+           
         return redirect()->route('admin.roles.index');
 
     }

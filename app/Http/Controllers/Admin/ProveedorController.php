@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\proveedor;
+use App\Models\Proveedor;
 class ProveedorController extends Controller
 {
     /**
@@ -12,7 +12,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        return view('admin.proveedor.index',['proveedores'=>proveedor::all()]);
+        return view('admin.proveedor.index',['proveedores'=>Proveedor::all()]);
     }
 
     /**
@@ -75,7 +75,7 @@ class ProveedorController extends Controller
             'pais'=>'required',
             'telefono'=>'required',
         ]);
-        $proveedor = proveedor::find($id);
+        $proveedor = Proveedor::find($id);
         $proveedor->nombre = $request->get('nombre');
         $proveedor->email = $request->get('email');
         $proveedor->direccion = $request->get('direccion');

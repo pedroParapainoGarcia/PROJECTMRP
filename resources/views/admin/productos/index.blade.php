@@ -20,6 +20,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Categoria</th>
+            <th scope="col">Stock</th>
             <th scope="col">Acciones</th>
         </tr>
     </thead>
@@ -30,13 +31,21 @@
             <td>{{$producto->nombre}}</td>
             <td>{{$producto->descripcion}}</td>
             
-            
 
-            <td>{{$producto->categorias->nombres}}</td>
+            <td>
+                @foreach($categorias as $categoria)
+                @if($producto->id_categoria == $categoria->id)
+                <h5><span >{{$categoria->nombres}}</span></h5>
+                @endif
+                @endforeach
+            </td>
+
+            <td>{{$producto->stock}}</td>
+            
 
             <td>
                 <form action="{{ route ('admin.productos.destroy',$producto->id)}}" method="POST">
-                    <a href="{{ route ('admin.productos.edit',$producto->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                    
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>

@@ -341,37 +341,37 @@ return [
         ],       
       
         [
-            'text'    => 'Registro Materiales',
-            'icon'        => 'fas fa-money-check-edit', 
+            'text'    => 'Inventario',
+            'icon'     => 'fas fa-file-signature', 
                     
             'submenu' => [
                 [
                     'text' => 'Registro Categorias',
                     'route'  => 'admin.categorias.index',
-                    'icon' => 'fab fa-fw fa-buffer',
+                    'icon' => 'fas fa-list',
                 ],          
                 [
-                    'text' => 'Registro Productos',
+                    'text' => 'Inventario Materiales',
                     'route'  => 'admin.productos.index',
                     'icon' => 'fas fa-shipping-fast',
                 ],
                 [
                     'text' => 'Registro Proveedores',
                     'route'  => 'admin.proveedor.index',
-                    'icon' => 'fas fa-shipping-fast',
+                    'icon' => 'fas fa-address-book',
                 ],
             ],
         ],
         [
             'text'    => 'Operaciones',
-            'icon'        => 'fas fa-warehouse',
+            'icon'    => 'fas fa-folder-open',
             'submenu' => [
                 [
-                    'text' => 'Orden de Produccion',
-                    //'route'  => '',
-                    'icon' => 'fab fa-fw fa-buffer',
+                    'text' => 'Orden de Compra',
+                    'route'  => 'admin.notaingreso.index',
+                    'icon' => 'fas fa-shipping-fast',
                 ],          
-                [
+                [ 
                     'text' => 'Programación de Produccion',
                     //'route'  => '',
                     'icon' => 'fas fa-shipping-fast',
@@ -385,7 +385,7 @@ return [
         ],
         [
             'text'    => 'Planificación',
-            'icon'        => 'fas fa-warehouse',
+            'icon'        => 'fas fa-envelope',
             'submenu' => [
                 [
                     'text' => 'Control de Calidad',
@@ -406,7 +406,8 @@ return [
         ],
         [
             'text'    => 'Informe',
-            'icon'        => 'fa-solid fa-chart-simple',           
+            //'icon'        => 'fas fa-layer-group',  
+            'icon'        => 'fas fa-chart-line',          
             'submenu' => [
                 [
                     'text' => 'Orden de Produccion',

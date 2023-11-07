@@ -13,6 +13,8 @@ class Producto extends Model
         'nombre',
         'descripcion',
         'id_categoria',
+        'stock',
+        
 
     ];
     //relacion uno a muchos categorias-productos (inversa)

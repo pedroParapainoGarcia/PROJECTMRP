@@ -38,7 +38,8 @@ class ProductoController extends Controller
         $this->validate(request(),[        
             'nombre'=>'required',
             'descripcion'=>'required',
-            'id_categoria'=>'required'
+            'id_categoria'=>'required',
+            
             
         ]);
 
@@ -46,7 +47,9 @@ class ProductoController extends Controller
 
             $producto->nombre = $request->get('nombre');
             $producto->descripcion = $request->get('descripcion');
-            $producto->id_categoria = $request->get('id_categoria');
+            $producto->id_categoria = $request->get('id_categoria');          
+            $producto->stock=0;
+
            
             $producto->save();
 
