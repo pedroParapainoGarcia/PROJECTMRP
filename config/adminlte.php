@@ -324,41 +324,62 @@ return [
         [
             'text'  => 'Registro de Usuarios',            
             'icon' => 'fas fa-users fa-lock',
+            'can'   => 'admin.usuarios.index',
+
             
             'submenu' => [
                 [
                     'text' => 'Usuarios',
                     'route' => 'admin.usuarios.index',
                     'icon' => '  fas fa-user-plus',
+                    'can'   => 'admin.usuarios.index',
                 ],          
                 [
                     'text' => 'Roles',
                     'route'  => 'admin.roles.index',
                     'icon' => 'fas fa-address-card',
+                    'can'   => 'admin.roles.index',
                 ],
                 
             ],
         ],       
       
         [
+<<<<<<< HEAD
             'text'    => 'Inventario',
             'icon'     => 'fas fa-file-signature', 
+=======
+            'text'    => 'Registro Materiales',
+            'icon'        => 'fas fa-warehouse',
+            'can'   => 'admin.categorias.index', 
+>>>>>>> be04acbec09020cdaa4fe462bd6af3319f9c0ea2
                     
             'submenu' => [
                 [
                     'text' => 'Registro Categorias',
                     'route'  => 'admin.categorias.index',
+<<<<<<< HEAD
                     'icon' => 'fas fa-list',
+=======
+                    'icon' => 'fab fa-fw fa-buffer',
+                    'can'   => 'admin.categorias.index'
+>>>>>>> be04acbec09020cdaa4fe462bd6af3319f9c0ea2
                 ],          
                 [
                     'text' => 'Inventario Materiales',
                     'route'  => 'admin.productos.index',
                     'icon' => 'fas fa-shipping-fast',
+                    'can'   => 'admin.productos.index'
                 ],
                 [
                     'text' => 'Registro Proveedores',
                     'route'  => 'admin.proveedor.index',
+<<<<<<< HEAD
                     'icon' => 'fas fa-address-book',
+=======
+                    'icon' => 'fas fa-shipping-fast',
+                    'can'   => 'admin.proveedores.index'
+>>>>>>> be04acbec09020cdaa4fe462bd6af3319f9c0ea2
                 ],
             ],
         ],
@@ -581,5 +602,5 @@ return [
     |
     */
 
-    'livewire' => true,
+    'livewire' => false,
 ];

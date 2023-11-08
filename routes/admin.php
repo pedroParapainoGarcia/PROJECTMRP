@@ -10,16 +10,13 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\NotaingresoController;
 use App\Http\Controllers\Admin\DetalleingresoController;
 
-
 Route::resource('usuarios', UserController::class)->only(['index', 'create', 'edit', 'update', 'store', 'destroy'])->except('show')->names('admin.usuarios');
-Route::resource('categorias',CategoriaController::class)->names('admin.categorias');
 
-//Route::resource('productos', ProductoController::class)->names('repuestos.index');
-Route::resource('productos',ProductoController::class)->names('admin.productos');
-Route::resource('proveedores',ProveedorController::class)->names('admin.proveedor');
+Route::resource('categorias',CategoriaController::class)->except('show')->names('admin.categorias');
 
-Route::resource('users', AdminUserController::class)->only(['index', 'edit', 'update'])->names('admin.users');
+Route::resource('productos',ProductoController::class)->except('show')->names('admin.productos');
 
+<<<<<<< HEAD
 Route::resource('roles', RolController::class)->names('admin.roles');
 
 //para la nota de ingreso de materiales 
@@ -27,3 +24,8 @@ Route::resource('notaingreso', NotaingresoController::class)->names('admin.notai
 
 Route::resource('detallesingreso', DetalleingresoController::class)->names('admin.detallesingreso');
 
+=======
+Route::resource('proveedores',ProveedorController::class)->except('show')->names('admin.proveedor');
+
+Route::resource('roles', RolController::class)->except('show')->names('admin.roles');
+>>>>>>> be04acbec09020cdaa4fe462bd6af3319f9c0ea2

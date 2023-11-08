@@ -8,6 +8,15 @@ use App\Models\Categoria;
 
 class CategoriaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.categorias.index')->only('index');
+        $this->middleware('can:admin.categorias.create')->only('create', 'store');
+        $this->middleware('can:admin.categorias.edit')->only('edit', 'update');
+        $this->middleware('can:admin.categorias.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $categorias = Categoria::all();
@@ -31,7 +40,7 @@ class CategoriaController extends Controller
         $categorias->nombres = $request->get('nombres');
         $categorias->save();
 
-       return redirect()->route('admin.categorias.index');
+        return redirect()->route('admin.categorias.index');
     }
 
 

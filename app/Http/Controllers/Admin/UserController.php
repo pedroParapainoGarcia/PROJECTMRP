@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.usuarios.index')->only('index');
+        $this->middleware('can:admin.usuarios.create')->only('create');
+        $this->middleware('can:admin.usuarios.edit')->only('edit', 'update');
+        $this->middleware('can:admin.usuarios.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $usuarios = User::all();
