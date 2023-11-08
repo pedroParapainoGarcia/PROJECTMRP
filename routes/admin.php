@@ -16,16 +16,11 @@ Route::resource('categorias',CategoriaController::class)->except('show')->names(
 
 Route::resource('productos',ProductoController::class)->except('show')->names('admin.productos');
 
-<<<<<<< HEAD
 Route::resource('roles', RolController::class)->names('admin.roles');
 
-//para la nota de ingreso de materiales 
+
 Route::resource('notaingreso', NotaingresoController::class)->names('admin.notaingreso');//listar todas las notas de salidas
 
 Route::resource('detallesingreso', DetalleingresoController::class)->names('admin.detallesingreso');
 
-=======
 Route::resource('proveedores',ProveedorController::class)->except('show')->names('admin.proveedor');
-
-Route::resource('roles', RolController::class)->except('show')->names('admin.roles');
->>>>>>> be04acbec09020cdaa4fe462bd6af3319f9c0ea2

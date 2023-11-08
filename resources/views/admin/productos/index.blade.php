@@ -8,9 +8,9 @@
 
 @section('content')
 
-    @can('admin.productos.create')
+   
         <a class="btn btn-primary mb-3" href="{{ route('admin.productos.create') }}">CREAR</a>
-    @endcan
+    
 
     <table id="productos" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
 
@@ -20,6 +20,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
                 <th scope="col">Categoria</th>
+                <th scope="col">Stock</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -31,67 +32,25 @@
                     <td>{{ $producto->descripcion }}</td>
 
 
+                    <td>
+                        @foreach ($categorias as $categoria)
+                            @if ($producto->id_categoria == $categoria->id)
+                                <h5><span>{{ $categoria->nombres }}</span></h5>
+                            @endif
+                        @endforeach
+                    </td>
 
-<<<<<<< HEAD
-    <thead class="bg-primary text-white">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Categoria</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($productos as $producto)
-        <tr>
-            <td>{{$producto->id}}</td>
-            <td>{{$producto->nombre}}</td>
-            <td>{{$producto->descripcion}}</td>
-            
+                    <td>{{ $producto->stock }}</td>
 
-            <td>
-                @foreach($categorias as $categoria)
-                @if($producto->id_categoria == $categoria->id)
-                <h5><span >{{$categoria->nombres}}</span></h5>
-                @endif
-                @endforeach
-            </td>
-
-            <td>{{$producto->stock}}</td>
-            
-
-            <td>
-                <form action="{{ route ('admin.productos.destroy',$producto->id)}}" method="POST">
-                    
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
-                </form>
-            </td>
-=======
-                    <td>{{ $producto->categorias->nombres }}</td>
 
                     <td>
                         <form action="{{ route('admin.productos.destroy', $producto->id) }}" method="POST">
 
-                            @can('admin.productos.edit')
-                                <a href="{{ route('admin.productos.edit', $producto->id) }}" class="btn btn-info"><i
-                                        class="fa fa-edit"></i></a>
-                            @endcan
->>>>>>> be04acbec09020cdaa4fe462bd6af3319f9c0ea2
-
                             @csrf
                             @method('DELETE')
-
-                            @can('admin.productos.destroy')
-                                <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
-                            @endcan
-
+                            <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
                         </form>
                     </td>
-
                 </tr>
             @endforeach
         </tbody>
@@ -108,8 +67,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
-
-
 
     <!-- SUM()  Datatables-->
     <script src="https://cdn.datatables.net/plug-ins/1.10.20/api/sum().js"></script>
@@ -143,9 +100,6 @@
 
 
             });
-
-
-
 
 
         });

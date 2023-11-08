@@ -27,19 +27,17 @@
             <td>{{$role->name}}</td>
 
             <td>
-                @can('admin.roles.destroy')
+                
                 <form action="{{ route ('admin.roles.destroy',$role->id)}}" method="POST">
-
-
-                    @can('admin.roles.edit')
+                    
                     <a href="{{ route('admin.roles.edit',$role->id)}}" class="btn btn-info"><i
                         class="fa fa-edit"></i></a>
-                    @endcan
+                    
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn bg-red text-white"><i class="fa fa-trash"></i></button>
                 </form>
-                @endcan
+                
 
             </td>
 

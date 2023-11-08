@@ -10,18 +10,9 @@ use App\Http\Controllers\Api\CategoriaController;
 
 class ProductoController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('can:admin.productos.index')->only('index');
-        $this->middleware('can:admin.productos.create')->only('create', 'store');
-        $this->middleware('can:admin.productos.edit')->only('edit', 'update');
-        $this->middleware('can:admin.productos.destroy')->only('destroy');
-    }
-
+ 
     public function index()
-    {
-        
+    {        
          $categorias = Categoria::all(); 
          $productos= Producto::all();
         return view('admin.productos.index',compact('productos','categorias'));
@@ -30,17 +21,12 @@ class ProductoController extends Controller
 
     public function create()
     {
-        $producto = new Producto();
-        // $categorias = Categoria::pluck('nombres','id');
-        $categorias = Categoria::all();
-         
+        $producto = new Producto();       
+        $categorias = Categoria::all();         
         return view('admin.productos.crear',compact('producto','categorias'));
     
-        // $modelo = new Modelo();
-        // $marcas= Marca::pluck('nombre','id');   
-        // return view('admin.modelos.crear',compact('modelo','marcas'));
+        
     }
-
 
     public function store(Request $request)
     {
@@ -60,12 +46,9 @@ class ProductoController extends Controller
             $producto->stock=0;
 
            
-            $producto->save();
-
-       
+            $producto->save();     
         
          return redirect()->route('admin.productos.index');
-
        
     }
 

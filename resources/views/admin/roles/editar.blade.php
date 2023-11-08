@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'CRUD con Laravel 8')
+@section('title', 'MRP')
 
 @section('content_header')
 <h1>Editar Rol</h1>
@@ -17,23 +17,23 @@
   </div>
 
   <label for="">Permisos para este Rol:</label>
-  <div class="row g-3">
-      <br />
-      @foreach($permission as $privilegio)
-      <div class="col-12 col-md-3">
-          <div class="form-group">
-              <label>
-                  <input type="checkbox" name="permission[]" value="{{ $privilegio->id }}" class="name" 
-                  @if(in_array($privilegio->id, $rolePermissions)) checked @endif>
-                  {{ $privilegio->description }}
-              </label>
-              <br />
-          </div>
-      </div>
-      @endforeach
-  </div>
+    <div class="row g-3">
+        <br />
+        @foreach($permission as $privilegio)
+        <div class="col-12 col-md-3">
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="permission[]" value="{{ $privilegio->name }}" class="name" 
+                    @if(in_array($privilegio->name, $rolePermissions)) checked @endif>
+                    {{ $privilegio->description }}
+                </label>
+                <br />
+            </div>
+        </div>
+        @endforeach
+    </div>
   
-  
+     
   
   
   
