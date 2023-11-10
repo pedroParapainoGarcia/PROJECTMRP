@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RolController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\NotaingresoController;
 use App\Http\Controllers\Admin\DetalleingresoController;
+use App\Http\Controllers\Admin\LoteController;
 
 Route::resource('usuarios', UserController::class)->only(['index', 'create', 'edit', 'update', 'store', 'destroy'])->except('show')->names('admin.usuarios');
 
@@ -23,4 +24,6 @@ Route::resource('proveedores',ProveedorController::class)->except('show')->names
 Route::resource('notaingreso', NotaingresoController::class)->names('admin.notaingreso');//listar todas las notas de salidas
 
 Route::resource('detallesingreso', DetalleingresoController::class)->names('admin.detallesingreso');
+
+Route::resource('lote', LoteController::class)->names('admin.lote');
 

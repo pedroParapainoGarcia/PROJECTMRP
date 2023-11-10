@@ -55,6 +55,11 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.detallesingreso.edit', 'description' => 'Editar detalles de ingreso'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.detallesingreso.destroy', 'description' => 'Eliminar detalles ingreso'])->syncRoles([$role1]);
 
+        Permission::create(['name' => 'admin.lote.index', 'description' => 'Ver Lote'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.lote.create', 'description' => 'Crear Lote'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.lote.edit', 'description' => 'Editar Lote'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.lote.destroy', 'description' => 'Eliminar Lote'])->syncRoles([$role1]);
+
         //Permission::create(['name' => 'admin.bitacoras.index','description'=>'Ver Bitacora'])->syncRoles([$role1]);
     }
 }

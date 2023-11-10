@@ -355,10 +355,16 @@ return [
                     'can' => 'admin.categorias.index'
                 ],          
                 [
-                    'text' => 'Inventario Materiales',
+                    'text' => 'Inventario Productos',
                     'route'  => 'admin.productos.index',
                     'icon' => 'fas fa-shipping-fast',
                     'can' => 'admin.productos.index'
+                ],
+                [
+                    'text' => 'Registro de Lotes',
+                    'route'  => 'admin.lote.index',
+                    'icon' => 'fas fa-shipping-fast',
+                    'can' => 'admin.lote.index'
                 ],
                 [
                     'text' => 'Registro Proveedores',

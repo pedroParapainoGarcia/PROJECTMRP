@@ -8,44 +8,38 @@
 
 @section('content')
 
-    @can('admin.productos.create')
-        <a class="btn btn-primary mb-3" href="{{ route('admin.productos.create') }}">CREAR</a>
+    @can('admin.lote.create')
+        <a class="btn btn-primary mb-3" href="{{ route('admin.lote.create') }}">CREAR</a>
     @endcan
 
-    <table id="productos" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
+    <table id="lotes" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
 
         <thead class="bg-primary text-white">
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">Stock</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Cantidad</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($productos as $producto)
+            @foreach ($lotes as $lote)
                 <tr>
-                    <td>{{ $producto->id }}</td>
-                    <td>{{ $producto->nombre }}</td>
-                    <td>{{ $producto->descripcion }}</td>
-
+                    <td>{{ $lote->id }}</td>
+                    <td>{{ $lote->nombre }}</td>
+                    <td>{{ $lote->descripcion }}</td>
 
                     <td>
-                        @foreach ($categorias as $categoria)
-                            @if ($producto->id_categoria == $categoria->id)
-                                <h5><span>{{ $categoria->nombres }}</span></h5>
+                        @foreach ($productos as $producto)
+                            @if ($lote->id_producto == $producto->id)
+                                <h5><span>{{ $producto->nombres }}</span></h5>
                             @endif
                         @endforeach
                     </td>
 
-                    <td>{{ $producto->stock }}</td>
-
-
                     <td>
-                        @can('admin.productos.destroy')
-                            <form action="{{ route('admin.productos.destroy', $producto->id) }}" method="POST">
+                        @can('admin.lote.destroy')
+                            <form action="{{ route('admin.lote.destroy', $lote->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
@@ -74,20 +68,12 @@
 
     <script>
         $(document).ready(function() {
-            $('#productos').DataTable({
-
+            $('#lotes').DataTable({
+                //"lengthMenu": [[5,10, 50, -1], [5, 10, 50, "All"]]
                 responsive: true,
                 autoWidth: false,
                 "language": {
-                    "lengthMenu": "Mostrar" +
-                        `<select>
-                <option value = '5'>5</option>
-                <option value = '10'>10</option>
-                <option value = '25'>25</option>
-                <option value='100'>100</option>
-                <option value='-1'>All</option>
-                </select>` +
-                        "registros por página",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
                     "zeroRecords": "Nada encontrado - disculpa",
                     "info": "Mostrando la página _PAGE_ de _PAGES_",
                     "infoEmpty": "No records available",
@@ -97,7 +83,7 @@
                         'next': 'Siguiente',
                         'previous': 'Anterior'
                     }
-                },
+                }
             });
         });
     </script>
