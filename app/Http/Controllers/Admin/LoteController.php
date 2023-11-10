@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\bitacora;
 use Illuminate\Http\Request;
 use App\Models\Lote;
 use App\Models\Producto;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Spatie\Permission\Models\Role;
 
 class LoteController extends Controller
 {
@@ -49,6 +53,17 @@ class LoteController extends Controller
 
         $lotes->save();
 
+        $bitacora = new bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Lotes';
+        $informacionDeBitacora='Registró';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $lotes->id;        
+        $bitacora->save();
+
         return redirect()->route('admin.lote.index');
     }
 
@@ -74,6 +89,17 @@ class LoteController extends Controller
         $lotes->update($input);
 
         $lotes->save();
+        
+        $bitacora = new bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Lotes';
+        $informacionDeBitacora='Actualizó';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $lotes->id;        
+        $bitacora->save();
 
         return redirect()->route('admin.lote.index');
     }
@@ -82,6 +108,17 @@ class LoteController extends Controller
     public function destroy(string $id)
     {
         $lotes = Lote::find($id);
+
+        $bitacora = new bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Lotes';
+        $informacionDeBitacora='Eliminó';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $lotes->id;        
+        $bitacora->save();
 
         $lotes->delete();
         return redirect()->route('admin.lote.index');

@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\bitacora;
 use Illuminate\Http\Request;
 use App\Models\Proveedor;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Spatie\Permission\Models\Role ;
+
 class ProveedorController extends Controller
 {
 
@@ -45,6 +50,17 @@ class ProveedorController extends Controller
         $proveedor->telefono = $request->get('telefono');
         $proveedor->save();
 
+        $bitacora = new bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Proveedores';
+        $informacionDeBitacora='Registró';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $proveedor->id;        
+        $bitacora->save();
+
         return redirect()->route('admin.proveedor.index');
     }
 
@@ -66,7 +82,17 @@ class ProveedorController extends Controller
         $proveedor->pais = $request->get('pais');
         $proveedor->telefono = $request->get('telefono');
         $proveedor->save();
-    
+        
+        $bitacora = new Bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Proveedores';
+        $informacionDeBitacora='Actualizó';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $proveedor->id;        
+        $bitacora->save();
         return redirect()->route('admin.proveedor.index');
     }
 
@@ -74,9 +100,21 @@ class ProveedorController extends Controller
     public function destroy(string $id)
     {
         $proveedor = Proveedor::find($id);
+        $bitacora = new Bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Provedores';
+        $informacionDeBitacora='Eliminó';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $proveedor->id;        
+        $bitacora->save();
         $proveedor->delete();
 
         return redirect()->route('admin.proveedor.index');
     }
+
+    
 
 }

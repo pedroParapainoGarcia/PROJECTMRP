@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\bitacora;
 use App\Models\Detalleingreso;
 use App\Models\Notaingreso;
 use App\Models\Producto;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
 
 class DetalleingresoController extends Controller
 {
@@ -95,14 +97,35 @@ class DetalleingresoController extends Controller
             //actualizamos el stock del producto
             $producto->stock += $detalleingreso->cantidad;
             $producto->save();
+
+            $this->validate(request(), [
+                'id' => 'required',
+                'fecha' => 'required',
+                'costo Total' => 'required',
+                'proveedor' => 'required',
+            ]);
+    
+            $notaingreso = new Detalleingreso();
+            $notaingreso->nombres = $request->get('nombres');
+            $notaingreso->save();
+    
+            $bitacora = new bitacora();
+            $id = Auth::id();
+            $bitacora->causer_id = $id;
+            $bitacora->name = Role::find($id)->name;
+            $bitacora->long_name = 'Detalleingreso';
+            $informacionDeBitacora = 'Registró';
+            $informacionCifrada = Crypt::encrypt($informacionDeBitacora);
+            $bitacora->descripcion = $informacionCifrada;
+            $bitacora->subject_id = $detalleingreso->id;
+            $bitacora->save();
+    
         }
 
         $notaingreso->costototal = $totalnota;
         $notaingreso->save();
-
-
-
-        return redirect()->route('admin.notaingreso.index')->with('success', 'Ingreso de Material Registrada Correctamente');
+        return redirect()->route('admin.detalleingreso.index')->with('success', 'Ingreso de Material Registrada Correctamente');
+    
     }
 
     /**
@@ -149,5 +172,19 @@ class DetalleingresoController extends Controller
         $nota->delete();
 
         return redirect()->route('admin.notaingreso.index')->with('error', 'nota eliminada');
+
+        $notaingreso = Detalleingreso::find($id);
+        $bitacora = new bitacora();
+        $id = Auth::id();
+        $bitacora->causer_id = $id;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Detalleingreso';
+        $informacionDeBitacora = 'Eliminó';
+        $informacionCifrada = Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $detalleingreso->id;
+        $bitacora->save();
+        $notaingreso->delete();
+        return redirect()->route('admin.detalleingreso.index');
     }
 }

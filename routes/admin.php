@@ -10,6 +10,9 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\NotaingresoController;
 use App\Http\Controllers\Admin\DetalleingresoController;
 use App\Http\Controllers\Admin\LoteController;
+use App\Http\Controllers\BitacoraController;
+
+
 
 Route::resource('usuarios', UserController::class)->only(['index', 'create', 'edit', 'update', 'store', 'destroy'])->except('show')->names('admin.usuarios');
 
@@ -26,4 +29,6 @@ Route::resource('notaingreso', NotaingresoController::class)->names('admin.notai
 Route::resource('detallesingreso', DetalleingresoController::class)->names('admin.detallesingreso');
 
 Route::resource('lote', LoteController::class)->names('admin.lote');
+
+Route::resource('bitacoras', BitacoraController::class)->names('admin.bitacoras');
 

@@ -3,7 +3,7 @@
 @section('title', 'MRP')
 
 @section('content_header')
-    <h1>Lista de Productos </h1>
+    <h1>Registro de Lotes </h1>
 @stop
 
 @section('content')

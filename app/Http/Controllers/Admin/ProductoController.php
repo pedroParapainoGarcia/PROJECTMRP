@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Http\Controllers\Api\CategoriaController;
+use App\Models\bitacora;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Spatie\Permission\Models\Role;
 
 class ProductoController extends Controller
 {
@@ -53,6 +57,17 @@ class ProductoController extends Controller
 
         $producto->save();
 
+        $bitacora = new bitacora();   
+            $id = Auth::id();       
+            $bitacora->causer_id = $id ;
+            $bitacora->name = Role::find($id)->name;
+            $bitacora->long_name = 'Producto';
+            $informacionDeBitacora='Registró';
+            $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+            $bitacora->descripcion = $informacionCifrada;
+            $bitacora->subject_id = $producto->id;        
+            $bitacora->save();
+
         return redirect()->route('admin.productos.index');
     }
 
@@ -77,6 +92,16 @@ class ProductoController extends Controller
 
         $producto->save();
 
+        $bitacora = new Bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Producto';
+        $informacionDeBitacora='Actualizó';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $producto->id;        
+        $bitacora->save();
 
         return redirect()->route('admin.productos.index');
     }
@@ -86,6 +111,16 @@ class ProductoController extends Controller
     {
         $producto = Producto::find($id);
 
+        $bitacora = new Bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Producto';
+        $informacionDeBitacora='Eliminó';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $producto->id;        
+        $bitacora->save();
 
         $producto->delete();
         return redirect()->route('admin.productos.index');

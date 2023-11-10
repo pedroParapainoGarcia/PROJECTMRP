@@ -15,7 +15,7 @@ use Illuminate\Support\Arr;
 use App\Models\Bitacora;
 use  App\Http\Controllers\Admin\BitacoraController;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Crypt;
 
 class RolController extends Controller
 {
@@ -51,6 +51,17 @@ class RolController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
 
+        $bitacora = new bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Roles';
+        $informacionDeBitacora='Registró';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $role->id;        
+        $bitacora->save();
+
         return redirect()->route('admin.roles.index');
     }
 
@@ -78,6 +89,16 @@ class RolController extends Controller
 
         $role->syncPermissions($request->input('permission'));
 
+        $bitacora = new bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Roles';
+        $informacionDeBitacora='Actualizó';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $role->id;        
+        $bitacora->save();
 
         return redirect()->route('admin.roles.index');
     }
@@ -86,6 +107,17 @@ class RolController extends Controller
     public function destroy($id)
     {
         $rol = Role::find($id);
+
+        $bitacora = new bitacora();   
+        $id = Auth::id();       
+        $bitacora->causer_id = $id ;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Roles';
+        $informacionDeBitacora='Eliminó';
+        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $rol->id;        
+        $bitacora->save();
 
         $rol->delete();
         return redirect()->route('admin.roles.index');
