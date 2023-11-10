@@ -40,10 +40,20 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.productos.edit', 'description' => 'Editar datos de productos'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.productos.destroy', 'description' => 'Eliminar productos'])->syncRoles([$role1]);
 
-        Permission::create(['name' => 'admin.proveedores.index', 'description' => 'Ver Listado de Proveedores'])->syncRoles([$role1]);
-        Permission::create(['name' => 'admin.proveedores.create', 'description' => 'Crear Proveedor'])->syncRoles([$role1]);
-        Permission::create(['name' => 'admin.proveedores.edit', 'description' => 'Editar datos de Proveedor'])->syncRoles([$role1]);
-        Permission::create(['name' => 'admin.proveedores.destroy', 'description' => 'Eliminar proveedor'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.proveedor.index', 'description' => 'Ver Listado de Proveedores'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.proveedor.create', 'description' => 'Crear Proveedor'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.proveedor.edit', 'description' => 'Editar datos de Proveedor'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.proveedor.destroy', 'description' => 'Eliminar proveedor'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'admin.notaingreso.index', 'description' => 'Ver Listado de ingreso'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.notaingreso.create', 'description' => 'Crear ingreso'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.notaingreso.edit', 'description' => 'Editar datos de ingreso'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.notaingreso.destroy', 'description' => 'Eliminar ingreso'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'admin.detallesingreso.index', 'description' => 'Ver detalle de ingreso'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.detallesingreso.create', 'description' => 'Crear detalle ingreso'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.detallesingreso.edit', 'description' => 'Editar detalles de ingreso'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.detallesingreso.destroy', 'description' => 'Eliminar detalles ingreso'])->syncRoles([$role1]);
 
         //Permission::create(['name' => 'admin.bitacoras.index','description'=>'Ver Bitacora'])->syncRoles([$role1]);
     }

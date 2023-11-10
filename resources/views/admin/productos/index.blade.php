@@ -8,9 +8,9 @@
 
 @section('content')
 
-   
+    @can('admin.productos.create')
         <a class="btn btn-primary mb-3" href="{{ route('admin.productos.create') }}">CREAR</a>
-    
+    @endcan
 
     <table id="productos" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
 
@@ -44,12 +44,13 @@
 
 
                     <td>
-                        <form action="{{ route('admin.productos.destroy', $producto->id) }}" method="POST">
-
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
-                        </form>
+                        @can('admin.productos.destroy')
+                            <form action="{{ route('admin.productos.destroy', $producto->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

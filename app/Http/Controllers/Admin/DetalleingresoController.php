@@ -15,6 +15,16 @@ use App\Models\User;
 
 class DetalleingresoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.detallesingreso.index')->only('index');
+        $this->middleware('can:admin.detallesingreso.create')->only('create', 'store');
+        $this->middleware('can:admin.detallesingreso.edit')->only('edit', 'update');
+        $this->middleware('can:admin.detallesingreso.destroy')->only('destroy');
+    }
+
+
     public function index(Request $request)
     {
         $id = $request->id;

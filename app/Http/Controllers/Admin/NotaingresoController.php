@@ -10,6 +10,16 @@ use Carbon\Carbon;
 
 class NotaingresoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.notaingreso.index')->only('index');
+        $this->middleware('can:admin.notaingreso.create')->only('create', 'store');
+        $this->middleware('can:admin.notaingreso.edit')->only('edit', 'update');
+        $this->middleware('can:admin.notaingreso.destroy')->only('destroy');
+    }
+
+
     public function index(Request $request)
     {
         $id = $request->id;

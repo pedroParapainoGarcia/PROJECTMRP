@@ -8,8 +8,14 @@ use App\Models\Proveedor;
 class ProveedorController extends Controller
 {
 
-
-
+    public function __construct()
+    {
+        $this->middleware('can:admin.proveedor.index')->only('index');
+        $this->middleware('can:admin.proveedor.create')->only('create', 'store');
+        $this->middleware('can:admin.proveedor.edit')->only('edit', 'update');
+        $this->middleware('can:admin.proveedor.destroy')->only('destroy');
+    }
+    
     
     public function index()
     {
@@ -23,7 +29,7 @@ class ProveedorController extends Controller
 
     public function store(Request $request)
     {
-        $validar = $request->validate([        
+        $this->validate(request(),[        
             'nombre'=>'required',
             'email'=>'required',
             'direccion'=>'required',
@@ -38,6 +44,7 @@ class ProveedorController extends Controller
         $proveedor->pais = $request->get('pais');
         $proveedor->telefono = $request->get('telefono');
         $proveedor->save();
+
         return redirect()->route('admin.proveedor.index');
     }
 
@@ -45,19 +52,13 @@ class ProveedorController extends Controller
     public function edit(string $id)
     {
         $proveedor = Proveedor::find($id);
+
         return view('admin.proveedor.editar',compact('proveedor'));
     }
 
 
     public function update(Request $request, $id)
     {
-        $validar = $request->validate([        
-            'nombre'=>'required',
-            'email'=>'required',
-            'direccion'=>'required',
-            'pais'=>'required',
-            'telefono'=>'required',
-        ]);
         $proveedor = Proveedor::find($id);
         $proveedor->nombre = $request->get('nombre');
         $proveedor->email = $request->get('email');
@@ -65,7 +66,6 @@ class ProveedorController extends Controller
         $proveedor->pais = $request->get('pais');
         $proveedor->telefono = $request->get('telefono');
         $proveedor->save();
-
     
         return redirect()->route('admin.proveedor.index');
     }
@@ -75,6 +75,7 @@ class ProveedorController extends Controller
     {
         $proveedor = Proveedor::find($id);
         $proveedor->delete();
+
         return redirect()->route('admin.proveedor.index');
     }
 

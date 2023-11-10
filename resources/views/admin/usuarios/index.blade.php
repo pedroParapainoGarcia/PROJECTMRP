@@ -40,14 +40,15 @@
                         @can('admin.usuarios.destroy')
                             <form action="{{ route('admin.usuarios.destroy', $usuario->id) }}" method="POST">
                                 @csrf
-
                                 @can('admin.usuarios.edit')
                                     <a href="{{ route('admin.usuarios.edit', $usuario->id) }}" class="btn btn-info"><i
                                             class="fa fa-edit"></i></a>
                                 @endcan
 
                                 @method('DELETE')
-                                <button type="submit" class="btn bg-red text-white"><i class="fa fa-trash"></i></button>
+                                @can('admin.usuarios.destroy')
+                                    <button type="submit" class="btn bg-red text-white"><i class="fa fa-trash"></i></button>
+                                @endcan
                             </form>
                         @endcan
                     </td>

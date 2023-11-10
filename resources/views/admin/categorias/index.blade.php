@@ -29,8 +29,8 @@
                     <td>{{ $categoria->nombres }}</td>
 
                     <td>
-                        <form action="{{ route('admin.categorias.destroy', $categoria->id) }}" method="POST">
 
+                        <form action="{{ route('admin.categorias.destroy', $categoria->id) }}" method="POST">
                             @can('admin.categorias.edit')
                                 <a href="{{ route('admin.categorias.edit', $categoria->id) }}" class="btn btn-info"><i
                                         class="fa fa-edit"></i></a>
@@ -38,12 +38,11 @@
 
                             @csrf
                             @method('DELETE')
-
                             @can('admin.categorias.destroy')
                                 <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
                             @endcan
-
                         </form>
+
                     </td>
 
                 </tr>

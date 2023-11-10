@@ -324,21 +324,20 @@ return [
         [
             'text'  => 'Registro de Usuarios',            
             'icon' => 'fas fa-users fa-lock',
-            
-
+            'can' => 'admin.usuarios.index',
             
             'submenu' => [
                 [
                     'text' => 'Usuarios',
                     'route' => 'admin.usuarios.index',
                     'icon' => '  fas fa-user-plus',
-                    
+                    'can' => 'admin.usuarios.index'
                 ],          
                 [
                     'text' => 'Roles',
                     'route'  => 'admin.roles.index',
                     'icon' => 'fas fa-address-card',
-                    
+                    'can' => 'admin.roles.index'
                 ],
                 
             ],
@@ -353,17 +352,19 @@ return [
                     'text' => 'Registro Categorias',
                     'route'  => 'admin.categorias.index',
                     'icon' => 'fas fa-list',
+                    'can' => 'admin.categorias.index'
                 ],          
                 [
                     'text' => 'Inventario Materiales',
                     'route'  => 'admin.productos.index',
                     'icon' => 'fas fa-shipping-fast',
-                   
+                    'can' => 'admin.productos.index'
                 ],
                 [
                     'text' => 'Registro Proveedores',
                     'route'  => 'admin.proveedor.index',
                     'icon' => 'fas fa-address-book',
+                    'can' => 'admin.proveedor.index'
                 ],
             ],
         ],
@@ -375,6 +376,7 @@ return [
                     'text' => 'Orden de Compra',
                     'route'  => 'admin.notaingreso.index',
                     'icon' => 'fas fa-shipping-fast',
+                    'can' => 'admin.notaingreso.index'
                 ],          
                 [ 
                     'text' => 'Programación de Produccion',

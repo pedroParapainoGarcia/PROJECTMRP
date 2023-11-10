@@ -8,7 +8,6 @@ use App\Models\Categoria;
 
 class CategoriaController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('can:admin.categorias.index')->only('index');

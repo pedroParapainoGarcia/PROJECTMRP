@@ -18,9 +18,9 @@ Route::resource('productos',ProductoController::class)->except('show')->names('a
 
 Route::resource('roles', RolController::class)->names('admin.roles');
 
+Route::resource('proveedores',ProveedorController::class)->except('show')->names('admin.proveedor');
 
 Route::resource('notaingreso', NotaingresoController::class)->names('admin.notaingreso');//listar todas las notas de salidas
 
 Route::resource('detallesingreso', DetalleingresoController::class)->names('admin.detallesingreso');
 
-Route::resource('proveedores',ProveedorController::class)->except('show')->names('admin.proveedor');
