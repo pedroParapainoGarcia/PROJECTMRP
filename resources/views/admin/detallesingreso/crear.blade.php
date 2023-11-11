@@ -31,7 +31,7 @@
                 id="id_producto" lang="es" autofocus>
                 <option value="" disabled selected>Buscar Materiales</option>
                 @foreach($productosOptions as $value => $description)
-                <option value="{{ $value }}">{{ $description }}</option>
+                  <option value="{{ $value }}">{{ $description }}</option>
                 @endforeach
               </select>
             </div>

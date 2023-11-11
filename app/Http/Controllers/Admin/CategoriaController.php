@@ -38,7 +38,7 @@ class CategoriaController extends Controller
         $this->validate(request(), [
             'nombres' => 'required',
         ]);
-        dd($request);
+        //dd($request);
 
         $categorias = new Categoria();
         $categorias->nombres = $request->get('nombres');

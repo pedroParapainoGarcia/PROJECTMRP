@@ -49,8 +49,8 @@ class DetalleingresoController extends Controller
 
         foreach ($productos as $producto) {
             $categoria = $producto->categorias->nombres ?? 'Sin marca';
-            $descripcion = $producto->nombre . '-' . $producto->descripcion . '-'. $categoria ;
-            
+            $descripcion = $producto->nombre . '-' . $producto->descripcion . '-' . $categoria;
+
             $productosOptions[$producto->id] = $descripcion;
         }
 
@@ -60,7 +60,7 @@ class DetalleingresoController extends Controller
 
     public function store(Request $request)
     {
-       $this->validate(request(), [
+        $this->validate(request(), [
             'id_producto' => 'required',
             'cantidad' => 'required',
             'costounitario' => 'required'
@@ -70,14 +70,14 @@ class DetalleingresoController extends Controller
             'id_proveedor' => 'required',
 
         ]);
-     
-            $id = Auth::id();
-            $notaingreso = new Notaingreso();
-            $notaingreso->fecha = Carbon::now();
-            $notaingreso->costototal = 0.00; //se actualizara mas adelante al realizar una compra
-            $notaingreso->id_proveedor = $request->get('id_proveedor');
-            $notaingreso->save();       
-        
+
+        $id = Auth::id();
+        $notaingreso = new Notaingreso();
+        $notaingreso->fecha = Carbon::now();
+        $notaingreso->costototal = 0.00; //se actualizara mas adelante al realizar una compra
+        $notaingreso->id_proveedor = $request->get('id_proveedor');
+        $notaingreso->save();
+
         $totalnota = 0;
 
         foreach ($request->id_producto as $key => $id_producto) {
@@ -97,35 +97,24 @@ class DetalleingresoController extends Controller
             //actualizamos el stock del producto
             $producto->stock += $detalleingreso->cantidad;
             $producto->save();
-
-            $this->validate(request(), [
-                'id' => 'required',
-                'fecha' => 'required',
-                'costo Total' => 'required',
-                'proveedor' => 'required',
-            ]);
-    
-            $notaingreso = new Detalleingreso();
-            $notaingreso->nombres = $request->get('nombres');
-            $notaingreso->save();
-    
-            $bitacora = new bitacora();
-            $id = Auth::id();
-            $bitacora->causer_id = $id;
-            $bitacora->name = Role::find($id)->name;
-            $bitacora->long_name = 'Detalleingreso';
-            $informacionDeBitacora = 'Registró';
-            $informacionCifrada = Crypt::encrypt($informacionDeBitacora);
-            $bitacora->descripcion = $informacionCifrada;
-            $bitacora->subject_id = $detalleingreso->id;
-            $bitacora->save();
-    
         }
 
         $notaingreso->costototal = $totalnota;
         $notaingreso->save();
-        return redirect()->route('admin.detalleingreso.index')->with('success', 'Ingreso de Material Registrada Correctamente');
-    
+
+        $bitacora = new bitacora();
+        $id = Auth::id();
+        $bitacora->causer_id = $id;
+        $bitacora->name = Role::find($id)->name;
+        $bitacora->long_name = 'Detalleingreso';
+        $informacionDeBitacora = 'Registró';
+        $informacionCifrada = Crypt::encrypt($informacionDeBitacora);
+        $bitacora->descripcion = $informacionCifrada;
+        $bitacora->subject_id = $detalleingreso->id;
+        $bitacora->save();
+
+
+        return redirect()->route('admin.notaingreso.index')->with('success', 'Ingreso de Material Registrada Correctamente');
     }
 
     /**
@@ -161,17 +150,13 @@ class DetalleingresoController extends Controller
         if (!$nota) {
             return redirect()->route('admin.notaingreso.index')->with('error', 'ingreso no encontrada');
         }
-
         Detalleingreso::where('id_notaingreso', $nota->id)->delete();
         foreach ($nota->detalles as $detalleingreso) {
             $producto = Producto::find($detalleingreso->id_producto);
             $producto->stock += $detalleingreso->cantidad;
             $producto->save();
         }
-
         $nota->delete();
-
-        return redirect()->route('admin.notaingreso.index')->with('error', 'nota eliminada');
 
         $notaingreso = Detalleingreso::find($id);
         $bitacora = new bitacora();
@@ -185,6 +170,7 @@ class DetalleingresoController extends Controller
         $bitacora->subject_id = $detalleingreso->id;
         $bitacora->save();
         $notaingreso->delete();
-        return redirect()->route('admin.detalleingreso.index');
+
+        return redirect()->route('admin.notaingreso.index')->with('error', 'nota eliminada');        
     }
 }
