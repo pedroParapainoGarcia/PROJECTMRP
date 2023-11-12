@@ -24,6 +24,6 @@ class Notaingreso extends Model
     //relacion muchos a muchos notadesalida-repuestos
     public function productos()
     {
-        return $this->belongsToMany(Producto::class, 'detalleingresos')->withPivot('id_producto', 'cantidad', 'costounitario', 'subtotal');
+        return $this->belongsToMany(Producto::class, 'detalleingresos')->withPivot('cantidad', 'costounitario', 'subtotal');
     }
 }

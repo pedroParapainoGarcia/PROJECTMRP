@@ -17,6 +17,7 @@
     @endcan
 
     {{-- <a href="{{ route('admin.detallecompras.index',['id' => $nota->id]) }}" class="btn btn-info">Ver detalles</a> --}}
+    <a class="btn btn-primary mb-3" href="{{ route('admin.detallesingreso.generatePDF', ['id' => $id]) }}">Reporte</a>
 
     <div class="card">
 
@@ -71,11 +72,18 @@
                             <td>{{ $detalle->subtotal }}</td>
 
                             <td>
-                                {{-- <form action="{{ route('admin.detalleventas.destroy', $detalle->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')                        
-                                <button type="submit" class="btn bg-custom-red text-white"><i class="fa fa-trash"></i></button>
-                            </form>  --}}
+                                {{-- <form action="{{ route('admin.detallesingreso.destroy', $detalle->id) }}" method="POST">
+                                   
+                                        <a href="{{ route('admin.detallesingreso.edit', $detalle->id) }}" class="btn btn-info"><i
+                                                class="fa fa-edit"></i></a>
+                                 
+        
+                                    @csrf
+                                    @method('DELETE')
+                                    @can('admin.categorias.destroy')
+                                        <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
+                                    @endcan
+                                </form> --}}
                             </td>
                         </tr>
                     @endforeach
