@@ -350,7 +350,7 @@ return [
         ],       
       
         [
-            'text'    => 'Inventario',
+            'text'    => 'Producto Inventario',
             'icon'     => 'fas fa-file-signature',                   
             
             'submenu' => [
@@ -359,15 +359,27 @@ return [
                     'route'  => 'admin.categorias.index',
                     'icon' => 'fas fa-list',
                     'can' => 'admin.categorias.index'
-                ],          
+                ],
                 [
-                    'text' => 'Inventario Productos',
+                    'text' => 'Orden de Compra',
+                    'route'  => 'admin.notaingreso.index',
+                    'icon' => 'fas fa-shipping-fast',
+                    'can' => 'admin.notaingreso.index'
+                ],
+                [
+                    'text' => 'Materiales',
+                    //'route'  => 'admin..index',
+                    'icon' => 'fas fa-shipping-fast',
+                    //'can' => 'admin.productos.index'
+                ],            
+                [
+                    'text' => 'Productos',
                     'route'  => 'admin.productos.index',
                     'icon' => 'fas fa-shipping-fast',
                     'can' => 'admin.productos.index'
                 ],
                 [
-                    'text' => 'Registro de Lotes',
+                    'text' => 'Lotes',
                     'route'  => 'admin.lote.index',
                     'icon' => 'fas fa-shipping-fast',
                     'can' => 'admin.lote.index'
@@ -383,20 +395,19 @@ return [
         [
             'text'    => 'Operaciones',
             'icon'    => 'fas fa-folder-open',
-            'submenu' => [
-                [
-                    'text' => 'Orden de Compra',
-                    'route'  => 'admin.notaingreso.index',
-                    'icon' => 'fas fa-shipping-fast',
-                    'can' => 'admin.notaingreso.index'
-                ],          
+            'submenu' => [       
                 [ 
-                    'text' => 'Programación de Produccion',
+                    'text' => 'Orden de Producción',
+                    //'route'  => '',
+                    'icon' => 'fas fa-shipping-fast',
+                ],
+                [ 
+                    'text' => 'Programación de Producción',
                     //'route'  => '',
                     'icon' => 'fas fa-shipping-fast',
                 ],
                 [
-                    'text' => 'Seguimiento de Envio',
+                    'text' => 'Seguimiento de Producción',
                     //'route'  => '',
                     'icon' => 'fas fa-shipping-fast',
                 ],
@@ -407,17 +418,17 @@ return [
             'icon'        => 'fas fa-envelope',
             'submenu' => [
                 [
-                    'text' => 'Control de Calidad',
+                    'text' => 'Planificacion por Producción',
                     //'route'  => '',
                     'icon' => 'fab fa-fw fa-buffer',
                 ],          
                 [
-                    'text' => 'Planificación por Producción',
+                    'text' => 'Orden de Trabajo',
                     //'route'  => '',
                     'icon' => 'fas fa-shipping-fast',
                 ],
                 [
-                    'text' => 'Recurso de Producción',
+                    'text' => 'Costo de Producción',
                     //'route'  => '',
                     'icon' => 'fas fa-shipping-fast',
                 ],
