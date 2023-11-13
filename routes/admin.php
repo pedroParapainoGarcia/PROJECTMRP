@@ -24,9 +24,9 @@ Route::resource('roles', RolController::class)->names('admin.roles');
 
 Route::resource('proveedores',ProveedorController::class)->except('show')->names('admin.proveedor');
 
-Route::resource('notaingreso', NotaingresoController::class)->names('admin.notaingreso');//listar todas las notas de ingreso
-Route::get('notaingreso/reporte', [NotaingresoController::class, 'report'])->name('admin.notaingreso.reporte');
-Route::post('notaingreso/generar', [NotaingresoController::class, 'generar'])->name('admin.notaingreso.generar');
+Route::resource('notaingreso', NotaingresoController::class)->except(['show'])->names('admin.notaingreso');//listar todas las notas de ingreso
+Route::get('notaingreso/report', [NotaingresoController::class,'report'])->name('admin.notaingreso.report');
+Route::post('notaingreso/generar', [NotaingresoController::class,'generar'])->name('admin.notaingreso.generar');
 
 Route::resource('detallesingreso', DetalleingresoController::class)->names('admin.detallesingreso');
 Route::get('detallesingreso/{id}/generatePDF', [DetalleingresoController::class, 'generatePDF'])->name('admin.detallesingreso.generatePDF');
