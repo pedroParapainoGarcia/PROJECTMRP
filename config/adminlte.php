@@ -434,13 +434,13 @@ return [
             'icon'        => 'fas fa-chart-line',          
             'submenu' => [
                 [
-                    'text' => 'Reporte de stock de Inventario',
-                    //'route'  => '',
+                    'text' => 'Reporte de Inventario',
+                    //'route'  => 'admin.reportes.indexmateriales',
                     'icon' => 'fas fa-shipping-fast',
                 ],          
                 [
                     'text' => 'reporte de compras de Materiales',
-                    //'route'  => '',
+                    //'route'  => 'admin.reportes.generar',
                     'icon' => 'fas fa-shipping-fast',
                 ],
                 [

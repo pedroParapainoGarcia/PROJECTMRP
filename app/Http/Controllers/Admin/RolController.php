@@ -51,7 +51,7 @@ class RolController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
 
-        $bitacora = new bitacora();   
+        $bitacora = new Bitacora();   
         $id = Auth::id();       
         $bitacora->causer_id = $id ;
         $bitacora->name = Role::find($id)->name;
@@ -89,7 +89,7 @@ class RolController extends Controller
 
         $role->syncPermissions($request->input('permission'));
 
-        $bitacora = new bitacora();   
+        $bitacora = new Bitacora();   
         $id = Auth::id();       
         $bitacora->causer_id = $id ;
         $bitacora->name = Role::find($id)->name;
@@ -108,7 +108,7 @@ class RolController extends Controller
     {
         $rol = Role::find($id);
 
-        $bitacora = new bitacora();   
+        $bitacora = new Bitacora();   
         $id = Auth::id();       
         $bitacora->causer_id = $id ;
         $bitacora->name = Role::find($id)->name;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 use App\Models\Notaingreso;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 use Illuminate\Http\Request;
 use App\Models\Lote;
 use App\Models\Producto;
@@ -53,7 +53,7 @@ class LoteController extends Controller
 
         $lotes->save();
 
-        $bitacora = new bitacora();   
+        $bitacora = new Bitacora();   
         $id = Auth::id();       
         $bitacora->causer_id = $id ;
         $bitacora->name = Role::find($id)->name;
@@ -90,7 +90,7 @@ class LoteController extends Controller
 
         $lotes->save();
         
-        $bitacora = new bitacora();   
+        $bitacora = new Bitacora();   
         $id = Auth::id();       
         $bitacora->causer_id = $id ;
         $bitacora->name = Role::find($id)->name;
@@ -109,7 +109,7 @@ class LoteController extends Controller
     {
         $lotes = Lote::find($id);
 
-        $bitacora = new bitacora();   
+        $bitacora = new Bitacora();   
         $id = Auth::id();       
         $bitacora->causer_id = $id ;
         $bitacora->name = Role::find($id)->name;

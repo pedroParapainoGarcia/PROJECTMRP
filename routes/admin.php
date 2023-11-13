@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\NotaingresoController;
 use App\Http\Controllers\Admin\DetalleingresoController;
 use App\Http\Controllers\Admin\LoteController;
 use App\Http\Controllers\BitacoraController;
+use App\Http\Controllers\Admin\ReporteController;
 use App\Livewire\MetodoPago;
 use App\Livewire\Suscripciones;
 
@@ -38,3 +39,7 @@ Route::resource('bitacoras', BitacoraController::class)->names('admin.bitacoras'
 Route::get('/metodo-pago', MetodoPago::class)->name('metodo-pago');
 
 Route::get('/suscripciones', Suscripciones::class)->name('suscripciones');
+
+Route::resource('reportes',ReporteController::class)->except('show')->names('admin.reportes');
+Route::get('reportes/report', [ReporteController::class,'report'])->name('admin.reportes.report');
+Route::post('reportes/generar', [ReporteController::class,'generar'])->name('admin.reportes.generar');
