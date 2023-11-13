@@ -54,4 +54,29 @@ class NotaingresoController extends Controller
     {
         
     }
+
+    public function reporte(){
+        return view('admin.notaingreso.reporte');
+    }
+
+    public function generar(Request $request)
+    {
+        $fechaInicio = $request->input('fechainicio');
+        $fechaFin = $request->input('fechafin');
+    
+        // Buscar las notas de venta que estén entre las fechas especificadas
+        $notadecompras = Notaingreso::whereBetween('fecha', [$fechaInicio, $fechaFin])->get();
+
+        if ($notadecompras->isEmpty()) {
+            // Si no se encontraron notas de compra, redirigir al usuario con un mensaje de error
+            return redirect()->route('admin.notaingreso.reporte')
+                ->with('error', 'No se encontraron compras entre las fechas especificadas.');
+        }
+        $request->session()->forget('error');
+        // Cargar la vista del PDF con los datos de las notas de compra
+        $pdf = \PDF::loadView('admin.notaingreso.pdf', compact('notadecompras'));
+        $pdf->setPaper('A4', 'portrait');
+    
+        return $pdf->download($fechaInicio. ' -> ' .$fechaFin.' .pdf');
+    }
 }

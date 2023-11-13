@@ -319,6 +319,12 @@ return [
             'can'  => 'manage-blog',
         ],
 
+        [
+            'text' => 'Suscripciones',
+            'route'  => 'suscripciones',
+            //'url' => route('metodo-pago'),
+            'icon' => 'fas fa-wallet',
+        ],
       
         ['header' => 'Modulos'],
         [

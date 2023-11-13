@@ -12,6 +12,9 @@
         <a class="btn btn-primary mb-3" href="{{ route('admin.detallesingreso.create') }}">+ NUEVA NOTA DE INGRESO</a>
     @endcan
 
+    <a class="btn btn-danger mb-3" href="{{ route('admin.notaingreso.reporte')}}">Generar Reporte <i
+        class="fas fa-file-pdf ml-2"></i></a>
+
     <div class="col-md-6 col-xl-12">
         <h5 style="text-align: right; margin-right: 30px; ">Fecha: {{ $fechaActual }}</h5>
     </div>

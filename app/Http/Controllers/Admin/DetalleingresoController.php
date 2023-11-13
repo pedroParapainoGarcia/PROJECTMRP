@@ -173,4 +173,32 @@ class DetalleingresoController extends Controller
 
         return redirect()->route('admin.notaingreso.index')->with('error', 'nota eliminada');        
     }
+
+    public function generatePDF($id)
+    {
+        $notaDeCompra = Notaingreso::findOrFail($id);
+
+        $costoTotal = $notaDeCompra->costototal;
+        $fecha = $notaDeCompra->fecha;
+        
+        $proveedor = $notaDeCompra->proveedors->nombre;
+        $direccion = $notaDeCompra->proveedors->direccion;
+        $Spdf = $proveedor . ' - ' .$fecha;
+
+
+        $data = [
+            'detallecompras' => Detalleingreso::where('id_notaingreso', $id)->get(),
+            'costoTotal' => $costoTotal,      
+            'proveedor' => $proveedor,
+            'direccion' => $direccion,      
+            'fecha' => $fecha,
+        ];
+        
+
+        $pdf = \PDF::loadView('admin.detallesingreso.pdf',$data);
+        $pdf->setPaper('A4', 'portrait');
+
+
+        return $pdf->download($Spdf . '.pdf');
+    }
 }
