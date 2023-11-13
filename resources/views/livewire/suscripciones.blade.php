@@ -1,7 +1,7 @@
 <div>
     <div class="flex flex-col items-center justify-center min-h-screen p-10 text-gray-700 bg-gray-100 md:p-20">
         <h2 class="text-2xl font-medium">Suscribete</h2>
-        @vite('resources/css/app.css')
+        
         <!-- Component Start -->
         <div class="flex flex-wrap items-center justify-center w-full max-w-4xl mt-8">
             <div class="flex flex-col flex-grow mt-8 overflow-hidden bg-white rounded-lg shadow-lg">
@@ -145,6 +145,6 @@
             </div>
         </div>
         <!-- Component End  -->
-
+        @vite('resources/css/app.css')
     </div>
 </div>

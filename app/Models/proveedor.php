@@ -16,5 +16,4 @@ class Proveedor extends Model
         'pais' => 'required',
         'telefono' => 'required',
     ];
-
 }
