@@ -11,8 +11,8 @@ use App\Http\Controllers\Admin\NotaingresoController;
 use App\Http\Controllers\Admin\DetalleingresoController;
 use App\Http\Controllers\Admin\LoteController;
 use App\Http\Controllers\BitacoraController;
-
-
+use App\Livewire\MetodoPago;
+use App\Livewire\Suscripciones;
 
 Route::resource('usuarios', UserController::class)->only(['index', 'create', 'edit', 'update', 'store', 'destroy'])->except('show')->names('admin.usuarios');
 
@@ -32,3 +32,6 @@ Route::resource('lote', LoteController::class)->names('admin.lote');
 
 Route::resource('bitacoras', BitacoraController::class)->names('admin.bitacoras');
 
+Route::get('/metodo-pago', MetodoPago::class)->name('metodo-pago');
+
+Route::get('/suscripciones', Suscripciones::class)->name('suscripciones');
