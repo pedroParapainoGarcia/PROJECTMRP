@@ -1,6 +1,6 @@
 <div>
     <div class="flex flex-col items-center justify-center min-h-screen p-10 text-gray-700 bg-gray-100 md:p-20">
-        <h2 class="text-2xl font-medium">Suscribete</h2>
+        <h2 class="text-2xl font-medium">SUSCRIBETE</h2>
         
         <!-- Component Start -->
         <div class="flex flex-wrap items-center justify-center w-full max-w-4xl mt-8">
