@@ -12,61 +12,56 @@
         <a class="btn btn-primary mb-3" href="{{ route('admin.detallesingreso.create') }}">+ NUEVA NOTA DE INGRESO</a>
     @endcan
 
-    <a class="btn btn-danger mb-3" href="{{ route('admin.notaingreso.reporte')}}">Generar Reporte <i
-        class="fas fa-file-pdf ml-2"></i></a>
-
+    <a class="btn btn-danger mb-3" href="{{ route('admin.notaingreso.report') }}">Generar Reporte <i
+            class="fas fa-file-pdf ml-2"></i></a>
     <div class="col-md-6 col-xl-12">
         <h5 style="text-align: right; margin-right: 30px; ">Fecha: {{ $fechaActual }}</h5>
     </div>
+
     <div class="card">
-        <div class="card-body"></div>
+        <div class="card-body">
 
-        <table id="notaingreso" class="table venta table-striped mt-0.5 table-bordered shadow-lg dt-responsive nowrap">
+            <table id="notaingreso" class="table venta table-striped mt-0.5 table-bordered shadow-lg dt-responsive nowrap">
 
-            <thead class="bg-primary text-white">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Costo Total</th>
-                    <th scope="col">Proveedor</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($notaingreso as $nota)
+                <thead class="bg-primary text-white">
                     <tr>
-                        <td>{{ $nota->id }}</td>
-                        <td>{{ $nota->fecha }}</td>
-                        <td>{{ $nota->costototal }}</td>
-
-                        <td>
-                            @foreach ($proveedores as $proveedore)
-                                @if ($nota->id_proveedor == $proveedore->id)
-                                    <h5><span>{{ $proveedore->nombre }}</span></h5>
-                                @endif
-                            @endforeach
-                        </td>
-                        <td>
-
-                            @can('admin.detallesingreso.index')
-                                <a href="{{ route('admin.detallesingreso.index', ['id' => $nota->id]) }}"
-                                    class="btn btn-info">detalles <i class="fas fa-eye"></i>
-                                </a>
-                            @endcan
-
-
-                            {{-- <a class="btn btn-danger text-bold"
-                            href="{{ route('admin.notasalidas.pdf',$nota->id)}}">Imprimir<i
-                                class="fas fa-file-pdf ml-2"></i>
-                        </a>
-                        @csrf --}}
-
-                        </td>
+                        <th scope="col">ID</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Costo Total</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Acciones</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach ($notaingreso as $nota)
+                        <tr>
+                            <td>{{ $nota->id }}</td>
+                            <td>{{ $nota->fecha }}</td>
+                            <td>{{ $nota->costototal }}</td>
+
+                            <td>
+                                @foreach ($proveedores as $proveedore)
+                                    @if ($nota->id_proveedor == $proveedore->id)
+                                        <h5><span>{{ $proveedore->nombre }}</span></h5>
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td>
+
+                                @can('admin.detallesingreso.index')
+                                    <a href="{{ route('admin.detallesingreso.index', ['id' => $nota->id]) }}"
+                                        class="btn btn-info">detalles <i class="fas fa-eye"></i>
+                                    </a>
+                                @endcan
+
+
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
     </div>
 @stop
 

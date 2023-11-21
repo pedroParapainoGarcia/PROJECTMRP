@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Http\Controllers\Api\CategoriaController;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Spatie\Permission\Models\Role;
@@ -57,7 +57,7 @@ class ProductoController extends Controller
 
         $producto->save();
 
-        $bitacora = new bitacora();   
+        $bitacora = new Bitacora();   
             $id = Auth::id();       
             $bitacora->causer_id = $id ;
             $bitacora->name = Role::find($id)->name;

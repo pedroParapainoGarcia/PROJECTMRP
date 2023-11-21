@@ -20,15 +20,19 @@
 </head>
 
 <body>
-    <h1>Notas de Ingreso Articulos</h1>
+    <h1>Notas de Compra</h1>
+    <h3>Reporte de Ingreso de Articulos</h3>
+    <p>Fecha Inicial : {{ $fechaInicio }}</p>
+    <p>Fecha Final : {{ $fechaFin }}</p>
+
+
     <table>
         <thead>
             <tr>
-
+                <th style="background-color: lightblue;">Nro Documento</th>
                 <th style="background-color: lightblue;">Fecha</th>
-                <th style="background-color: lightblue;">Total</th>
                 <th style="background-color: lightblue;">Proveedor</th>
-
+                <th style="background-color: lightblue;">Total</th>
 
             </tr>
         </thead>
@@ -41,10 +45,18 @@
                     $totalCompras += $nota->costototal;
                 @endphp
                 <tr>
+                    <td>{{ $nota->id }}</td>
                     <td>{{ $nota->fecha }}</td>
-                    <td>{{ $nota->costototal }}</td>
-                    <td>{{ $nota->provedor->nombre }}</td>
+                    <td>
+                        @foreach ($proveedores as $proveedor)
+                            @if ($nota->id_proveedor == $proveedor->id)
+                                <h5><span>{{ $proveedor->nombre }}</span></h5>
+                            @endif
+                        @endforeach
 
+
+                    </td>
+                    <td>{{ $nota->costototal }}</td>
                 </tr>
             @endforeach
         </tbody>

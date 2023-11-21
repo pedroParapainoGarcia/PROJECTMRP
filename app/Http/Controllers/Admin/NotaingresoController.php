@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 use App\Models\Notaingreso;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
@@ -55,7 +55,7 @@ class NotaingresoController extends Controller
         
     }
 
-    public function reporte(){
+    public function report(){
         return view('admin.notaingreso.reporte');
     }
 
@@ -63,18 +63,19 @@ class NotaingresoController extends Controller
     {
         $fechaInicio = $request->input('fechainicio');
         $fechaFin = $request->input('fechafin');
+        $proveedores=Proveedor::all();
     
         // Buscar las notas de venta que estén entre las fechas especificadas
         $notadecompras = Notaingreso::whereBetween('fecha', [$fechaInicio, $fechaFin])->get();
 
         if ($notadecompras->isEmpty()) {
             // Si no se encontraron notas de compra, redirigir al usuario con un mensaje de error
-            return redirect()->route('admin.notaingreso.reporte')
+            return redirect()->route('admin.notaingreso.report')
                 ->with('error', 'No se encontraron compras entre las fechas especificadas.');
         }
         $request->session()->forget('error');
         // Cargar la vista del PDF con los datos de las notas de compra
-        $pdf = \PDF::loadView('admin.notaingreso.pdf', compact('notadecompras'));
+        $pdf = \PDF::loadView('admin.notaingreso.pdf', compact('notadecompras','proveedores','fechaInicio','fechaFin'));
         $pdf->setPaper('A4', 'portrait');
     
         return $pdf->download($fechaInicio. ' -> ' .$fechaFin.' .pdf');

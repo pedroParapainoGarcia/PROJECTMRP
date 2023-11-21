@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 use App\Models\Detalleingreso;
 use App\Models\Notaingreso;
 use App\Models\Producto;
@@ -102,7 +102,7 @@ class DetalleingresoController extends Controller
         $notaingreso->costototal = $totalnota;
         $notaingreso->save();
 
-        $bitacora = new bitacora();
+        $bitacora = new Bitacora();
         $id = Auth::id();
         $bitacora->causer_id = $id;
         $bitacora->name = Role::find($id)->name;
@@ -159,7 +159,7 @@ class DetalleingresoController extends Controller
         $nota->delete();
 
         $notaingreso = Detalleingreso::find($id);
-        $bitacora = new bitacora();
+        $bitacora = new Bitacora();
         $id = Auth::id();
         $bitacora->causer_id = $id;
         $bitacora->name = Role::find($id)->name;

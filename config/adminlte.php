@@ -363,17 +363,11 @@ return [
                 [
                     'text' => 'Orden de Compra',
                     'route'  => 'admin.notaingreso.index',
-                    'icon' => 'fas fa-shipping-fast',
+                    'icon' => 'fa fa-cart-plus',
                     'can' => 'admin.notaingreso.index'
-                ],
+                ],                    
                 [
                     'text' => 'Materiales',
-                    //'route'  => 'admin..index',
-                    'icon' => 'fas fa-shipping-fast',
-                    //'can' => 'admin.productos.index'
-                ],            
-                [
-                    'text' => 'Productos',
                     'route'  => 'admin.productos.index',
                     'icon' => 'fas fa-shipping-fast',
                     'can' => 'admin.productos.index'
@@ -435,18 +429,18 @@ return [
             ],
         ],
         [
-            'text'    => 'Informe',
+            'text'    => 'Reportes',
             //'icon'        => 'fas fa-layer-group',  
             'icon'        => 'fas fa-chart-line',          
             'submenu' => [
                 [
-                    'text' => 'Orden de Produccion',
-                    //'route'  => '',
-                    'icon' => 'fab fa-fw fa-buffer',
+                    'text' => 'Reporte de Inventario',
+                    //'route'  => 'admin.reportes.indexmateriales',
+                    'icon' => 'fas fa-shipping-fast',
                 ],          
                 [
-                    'text' => 'Planificación de Produccion',
-                    //'route'  => '',
+                    'text' => 'reporte de compras de Materiales',
+                    //'route'  => 'admin.reportes.generar',
                     'icon' => 'fas fa-shipping-fast',
                 ],
                 [

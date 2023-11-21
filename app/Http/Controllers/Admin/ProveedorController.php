@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 use Illuminate\Http\Request;
 use App\Models\Proveedor;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +50,7 @@ class ProveedorController extends Controller
         $proveedor->telefono = $request->get('telefono');
         $proveedor->save();
 
-        $bitacora = new bitacora();   
+        $bitacora = new Bitacora();   
         $id = Auth::id();       
         $bitacora->causer_id = $id ;
         $bitacora->name = Role::find($id)->name;
