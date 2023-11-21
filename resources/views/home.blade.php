@@ -7,10 +7,9 @@
 @stop
 
 @section('content')
-    <div class="conten">
-        <p>Bienvenido</p>
-        @include('parcial.livewire')
-    </div>
+    <p>Bienvenido</p>
+    @livewire('suscripciones')
+    @livewire('metodo-pago')
 @stop
 
 @section('css')

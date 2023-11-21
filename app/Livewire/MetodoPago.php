@@ -6,6 +6,13 @@ use Livewire\Component;
 
 class MetodoPago extends Component
 {
+    public $mostrarcomponente=false; 
+    protected $listeners = ['eventomostrarcomponente'];
+
+    public function eventomostrarcomponente(){
+        $this->mostrarcomponente=true;
+    }
+
     public function getDefaultPaymentMethodProperty()
     {
         return auth()->user()->defaultPaymentMethod();
