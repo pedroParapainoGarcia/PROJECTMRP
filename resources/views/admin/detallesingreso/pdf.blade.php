@@ -31,7 +31,7 @@
         <tbody>
             @foreach ($detallecompras as $detalle)
                 <tr>
-                    <td>{{ $detalle->producto->nombre}}</td>                  
+                    <td>{{ $detalle->Producto->nombre}}</td>                  
                     <td>{{ $detalle->cantidad }}</td>
                     <td>{{ $detalle->costounitario }}</td>
                     <td>{{ $detalle->cantidad * $detalle->costounitario }}</td>

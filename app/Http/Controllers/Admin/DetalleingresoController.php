@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Bitacora;
 use App\Models\Detalleingreso;
+use App\Models\Material;
 use App\Models\Notaingreso;
-use App\Models\Producto;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,36 +32,34 @@ class DetalleingresoController extends Controller
         $id = $request->id;
 
         $id = Auth::id();
-        $trabajador = Role::find($id)->name;
-
+        $empleado = Role::find($id)->name;
 
         $detalleingreso = Detalleingreso::where('id_notaingreso', $id)->get();
-        $productos = Producto::all();
-        $notadeingresos = Notaingreso::all();
-        return view('admin.detallesingreso.index', compact('detalleingreso', 'productos', 'notadeingresos', 'id', 'trabajador'));
+        $material = Material::all();
+        $notaingreso = Notaingreso::all();
+        return view('admin.detallesingreso.index', compact('detalleingreso', 'material', 'notaingreso', 'id', 'empleado'));
     }
 
     public function create(Request $request)
     {
-        $productos = Producto::select('id', 'nombre', 'descripcion', 'id_categoria')->get();
+        $Materiales = Material::select('id', 'nombre', 'descripcion', 'id_categoria')->get();
         $proveedores = Proveedor::all();
-        $productosOptions = [];
+        $MaterialesOptions = [];
 
-        foreach ($productos as $producto) {
-            $categoria = $producto->categorias->nombres ?? 'Sin marca';
-            $descripcion = $producto->nombre . '-' . $producto->descripcion . '-' . $categoria;
+        foreach ($Materiales as $Material) {
+            $categoria = $Material->categorias->nombres ?? 'Sin marca';
+            $descripcion = $Material->nombre . '-' . $Material->descripcion . '-' . $categoria;
 
-            $productosOptions[$producto->id] = $descripcion;
+            $materialesOptions[$Material->id] = $descripcion;
         }
 
-        return view('admin.detallesingreso.crear', compact('productosOptions', 'proveedores'));
+        return view('admin.detallesingreso.crear', compact('materialesOptions', 'proveedores'));
     }
-
 
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'id_producto' => 'required',
+            'id_material' => 'required',
             'cantidad' => 'required',
             'costounitario' => 'required'
         ]);
@@ -73,19 +71,20 @@ class DetalleingresoController extends Controller
 
         $id = Auth::id();
         $notaingreso = new Notaingreso();
-        $notaingreso->fecha = Carbon::now();
-        $notaingreso->costototal = 0.00; //se actualizara mas adelante al realizar una compra
+        $notaingreso->fecha_compra = Carbon::now();
+        $notaingreso->descripcion = $request->get('descripcion');
+        $notaingreso->costo_total = 0.00; //se actualizara mas adelante al realizar una compra
         $notaingreso->id_proveedor = $request->get('id_proveedor');
         $notaingreso->save();
 
         $totalnota = 0;
 
-        foreach ($request->id_producto as $key => $id_producto) {
-            $producto = Producto::find($id_producto);
+        foreach ($request->id_material as $key => $id_material) {
+            $material = Material::find($id_material);
 
             $detalleingreso = new Detalleingreso();
             $detalleingreso->id_notaingreso = $notaingreso->id;
-            $detalleingreso->id_producto = $producto->id;
+            $detalleingreso->id_material = $material->id;
             $detalleingreso->cantidad = $request->cantidad[$key];
             $detalleingreso->costounitario = $request->costounitario[$key];
             $subtotal = ($detalleingreso->costounitario * $detalleingreso->cantidad);
@@ -94,9 +93,9 @@ class DetalleingresoController extends Controller
 
             $totalnota += $subtotal;
 
-            //actualizamos el stock del producto
-            $producto->stock += $detalleingreso->cantidad;
-            $producto->save();
+            //actualizamos el stock del Material
+            $material->stock += $detalleingreso->cantidad;
+            $material->save();
         }
 
         $notaingreso->costototal = $totalnota;
@@ -114,36 +113,24 @@ class DetalleingresoController extends Controller
         $bitacora->save();
 
 
-        return redirect()->route('admin.notaingreso.index')->with('success', 'Ingreso de Material Registrada Correctamente');
+        return redirect()->route('admin.notaingreso.index')->with('success', 'Ingreso de Material Registrado Correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show()
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit()
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update()
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $nota = Notaingreso::find($id);
@@ -152,9 +139,9 @@ class DetalleingresoController extends Controller
         }
         Detalleingreso::where('id_notaingreso', $nota->id)->delete();
         foreach ($nota->detalles as $detalleingreso) {
-            $producto = Producto::find($detalleingreso->id_producto);
-            $producto->stock += $detalleingreso->cantidad;
-            $producto->save();
+            $material = Material::find($detalleingreso->id_material);
+            $material->stock += $detalleingreso->cantidad;
+            $material->save();
         }
         $nota->delete();
 
@@ -171,7 +158,7 @@ class DetalleingresoController extends Controller
         $bitacora->save();
         $notaingreso->delete();
 
-        return redirect()->route('admin.notaingreso.index')->with('error', 'nota eliminada');        
+        return redirect()->route('admin.notaingreso.index')->with('error', 'nota eliminada');
     }
 
     public function generatePDF($id)
@@ -180,22 +167,22 @@ class DetalleingresoController extends Controller
 
         $costoTotal = $notaDeCompra->costototal;
         $fecha = $notaDeCompra->fecha;
-        
+
         $proveedor = $notaDeCompra->proveedors->nombre;
         $direccion = $notaDeCompra->proveedors->direccion;
-        $Spdf = $proveedor . ' - ' .$fecha;
+        $Spdf = $proveedor . ' - ' . $fecha;
 
 
         $data = [
             'detallecompras' => Detalleingreso::where('id_notaingreso', $id)->get(),
-            'costoTotal' => $costoTotal,      
+            'costoTotal' => $costoTotal,
             'proveedor' => $proveedor,
-            'direccion' => $direccion,      
+            'direccion' => $direccion,
             'fecha' => $fecha,
         ];
-        
 
-        $pdf = \PDF::loadView('admin.detallesingreso.pdf',$data);
+
+        $pdf = \PDF::loadView('admin.detallesingreso.pdf', $data);
         $pdf->setPaper('A4', 'portrait');
 
 

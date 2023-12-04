@@ -8,44 +8,43 @@
 
 @section('content')
 
-    @can('admin.productos.create')
-        <a class="btn btn-primary mb-3" href="{{ route('admin.productos.create') }}">CREAR</a>
+    @can('admin.producto.create')
+        <a class="btn btn-primary mb-3" href="{{ route('admin.producto.create') }}">CREAR</a>
     @endcan
 
-    <table id="productos" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
+    <table id="Productos" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
 
         <thead class="bg-primary text-white">
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
-                <th scope="col">Categoria</th>
                 <th scope="col">Stock</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($productos as $producto)
+            @foreach ($producto as $Producto)
                 <tr>
-                    <td>{{ $producto->id }}</td>
-                    <td>{{ $producto->nombre }}</td>
-                    <td>{{ $producto->descripcion }}</td>
+                    <td>{{ $Producto->id }}</td>
+                    <td>{{ $Producto->nombre }}</td>
+                    <td>{{ $Producto->descripcion }}</td>
 
 
-                    <td>
+                    {{-- <td>
                         @foreach ($categorias as $categoria)
-                            @if ($producto->id_categoria == $categoria->id)
+                            @if ($Producto->id_categoria == $categoria->id)
                                 <h5><span>{{ $categoria->nombres }}</span></h5>
                             @endif
                         @endforeach
-                    </td>
+                    </td> --}}
 
-                    <td>{{ $producto->stock }}</td>
+                    <td>{{ $Producto->stock }}</td>
 
 
                     <td>
-                        @can('admin.productos.destroy')
-                            <form action="{{ route('admin.productos.destroy', $producto->id) }}" method="POST">
+                        @can('admin.producto.destroy')
+                            <form action="{{ route('admin.producto.destroy', $Producto->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
@@ -74,7 +73,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#productos').DataTable({
+            $('#Productos').DataTable({
 
                 responsive: true,
                 autoWidth: false,

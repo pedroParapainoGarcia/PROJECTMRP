@@ -9,12 +9,12 @@ class Lote extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'codigo',
-        'cantidad',
+        'codigo_de_lote',
+        'cantidad_producida',
         'id_producto',
     ];
     
-    //relacion uno a muchos producto-lote
+    //relacion uno a muchos lote-producto (inversa)
     public function productos(){
         return $this->hasMany(Producto::class,'id');
     }

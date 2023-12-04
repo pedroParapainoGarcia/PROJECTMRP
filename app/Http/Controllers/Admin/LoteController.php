@@ -24,34 +24,34 @@ class LoteController extends Controller
     
     public function index()
     {
-        $productos = Producto::all();
-        $lotes = Lote::all();
-        return view('admin.lote.index', compact('lotes', 'productos'));
+        $producto = Producto::all();
+        $lote = Lote::all();
+        return view('admin.lote.index', compact('lote', 'producto'));
     }
 
     
     public function create()
     {
-        $lotes = new Lote();
-        $productos = Producto::all();
-        return view('admin.lote.crear', compact('lotes', 'productos'));
+        $lote = new Lote();
+        $producto = Producto::all();
+        return view('admin.lote.crear', compact('lote', 'producto'));
     }
 
     
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'codigo' => 'required',
-            'cantidad' => 'required',
+            'codigo_de_lote' => 'required',
+            'cantidad_producida' => 'required',
             'id_producto' => 'required',
         ]);
 
-        $lotes = new Lote();
-        $lotes->codigo = $request->get('codigo');
-        $lotes->cantidad = $request->get('cantidad');
-        $lotes->id_producto = $request->get('id_producto');
+        $lote = new Lote();
+        $lote->codigo_de_lote = $request->get('codigo_de_lote');
+        $lote->cantidad_producida = $request->get('cantidad_producida');
+        $lote->id_producto = $request->get('id_producto');
 
-        $lotes->save();
+        $lote->save();
 
         $bitacora = new Bitacora();   
         $id = Auth::id();       
@@ -61,7 +61,7 @@ class LoteController extends Controller
         $informacionDeBitacora='Registró';
         $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
         $bitacora->descripcion = $informacionCifrada;
-        $bitacora->subject_id = $lotes->id;        
+        $bitacora->subject_id = $lote->id;        
         $bitacora->save();
 
         return redirect()->route('admin.lote.index');
@@ -70,25 +70,25 @@ class LoteController extends Controller
     
     public function edit(string $id)
     {
-        $lotes = Lote::find($id);
-        $productos = Producto::all();
-        return view('admin.lote.editar', compact('lotes', 'productos'));
+        $lote = Lote::find($id);
+        $producto = Producto::all();
+        return view('admin.lote.editar', compact('lote', 'producto'));
     }
 
     
     public function update(Request $request, string $id)
     {
         $this->validate(request(), [
-            'codigo' => 'required',
-            'cantidad' => 'required',
+            'codigo_de_lote' => 'required',
+            'cantidad_producida' => 'required',
             'id_producto' => 'required',
         ]);
 
         $input = $request->all();
-        $lotes = Lote::find($id);
-        $lotes->update($input);
+        $lote = Lote::find($id);
+        $lote->update($input);
 
-        $lotes->save();
+        $lote->save();
         
         $bitacora = new Bitacora();   
         $id = Auth::id();       
@@ -98,7 +98,7 @@ class LoteController extends Controller
         $informacionDeBitacora='Actualizó';
         $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
         $bitacora->descripcion = $informacionCifrada;
-        $bitacora->subject_id = $lotes->id;        
+        $bitacora->subject_id = $lote->id;        
         $bitacora->save();
 
         return redirect()->route('admin.lote.index');
@@ -107,7 +107,7 @@ class LoteController extends Controller
    
     public function destroy(string $id)
     {
-        $lotes = Lote::find($id);
+        $lote = Lote::find($id);
 
         $bitacora = new Bitacora();   
         $id = Auth::id();       
@@ -117,10 +117,10 @@ class LoteController extends Controller
         $informacionDeBitacora='Eliminó';
         $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
         $bitacora->descripcion = $informacionCifrada;
-        $bitacora->subject_id = $lotes->id;        
+        $bitacora->subject_id = $lote->id;        
         $bitacora->save();
 
-        $lotes->delete();
+        $lote->delete();
         return redirect()->route('admin.lote.index');
     }
 }

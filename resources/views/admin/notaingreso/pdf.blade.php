@@ -40,7 +40,7 @@
             @php
                 $totalCompras = 0;
             @endphp
-            @foreach ($notadecompras as $nota)
+            @foreach ($notaingresos as $nota)
                 @php
                     $totalCompras += $nota->costototal;
                 @endphp

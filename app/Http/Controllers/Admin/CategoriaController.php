@@ -12,6 +12,7 @@ use Spatie\Permission\Models\Role;
 
 class CategoriaController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('can:admin.categorias.index')->only('index');
@@ -40,19 +41,19 @@ class CategoriaController extends Controller
         ]);
         //dd($request);
 
-        $categorias = new Categoria();
-        $categorias->nombres = $request->get('nombres');
-        $categorias->save();
+        $categoria = new Categoria();
+        $categoria->nombres = $request->get('nombres');
+        $categoria->save();
 
-        $bitacora = new Bitacora();   
-        $id = Auth::id();       
-        $bitacora->causer_id = $id ;
+        $bitacora = new Bitacora();
+        $id = Auth::id();
+        $bitacora->causer_id = $id;
         $bitacora->name = Role::find($id)->name;
         $bitacora->long_name = 'Categoria';
-        $informacionDeBitacora='Registró';
-        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $informacionDeBitacora = 'Registró';
+        $informacionCifrada = Crypt::encrypt($informacionDeBitacora);
         $bitacora->descripcion = $informacionCifrada;
-        $bitacora->subject_id = $categorias->id;        
+        $bitacora->subject_id = $categoria->id;
         $bitacora->save();
 
         return redirect()->route('admin.categorias.index');
@@ -61,26 +62,26 @@ class CategoriaController extends Controller
 
     public function edit(string $id)
     {
-        $categorias = Categoria::find($id);
-        return view('admin.categorias.editar')->with('categorias', $categorias);
+        $categoria = Categoria::find($id);
+        return view('admin.categorias.editar')->with('categorias', $categoria);
     }
 
 
     public function update(Request $request, string $id)
     {
-        $categorias = Categoria::find($id);
-        $categorias->nombres = $request->get('nombres');
-        $categorias->save();
+        $categoria = Categoria::find($id);
+        $categoria->nombres = $request->get('nombres');
+        $categoria->save();
 
-        $bitacora = new Bitacora();   
-        $id = Auth::id();       
-        $bitacora->causer_id = $id ;
+        $bitacora = new Bitacora();
+        $id = Auth::id();
+        $bitacora->causer_id = $id;
         $bitacora->name = Role::find($id)->name;
         $bitacora->long_name = 'Categoria';
-        $informacionDeBitacora='Actualizó';
-        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $informacionDeBitacora = 'Actualizó';
+        $informacionCifrada = Crypt::encrypt($informacionDeBitacora);
         $bitacora->descripcion = $informacionCifrada;
-        $bitacora->subject_id = $categorias->id;        
+        $bitacora->subject_id = $categoria->id;
         $bitacora->save();
 
         return redirect()->route('admin.categorias.index');
@@ -89,18 +90,18 @@ class CategoriaController extends Controller
 
     public function destroy(string $id)
     {
-        $categorias = Categoria::find($id);
-        $bitacora = new Bitacora();   
-        $id = Auth::id();       
-        $bitacora->causer_id = $id ;
+        $categoria = Categoria::find($id);
+        $bitacora = new Bitacora();
+        $id = Auth::id();
+        $bitacora->causer_id = $id;
         $bitacora->name = Role::find($id)->name;
         $bitacora->long_name = 'Categoria';
-        $informacionDeBitacora='Eliminó';
-        $informacionCifrada=Crypt::encrypt($informacionDeBitacora);
+        $informacionDeBitacora = 'Eliminó';
+        $informacionCifrada = Crypt::encrypt($informacionDeBitacora);
         $bitacora->descripcion = $informacionCifrada;
-        $bitacora->subject_id = $categorias->id;        
+        $bitacora->subject_id = $categoria->id;
         $bitacora->save();
-        $categorias->delete();
+        $categoria->delete();
         return redirect()->route('admin.categorias.index');
     }
 }

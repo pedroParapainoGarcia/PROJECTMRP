@@ -33,7 +33,7 @@
       <div class="form-group">
         <label for="id_cliente">Producto</label>
           <select required class="form-control" name="id_producto" id="id_producto">
-              @foreach($productos as $producto)
+              @foreach($producto as $producto)
               
               <option value="{{$producto->id}}">{{$producto->nombres}}</option>
               @endforeach

@@ -11,23 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detalleingresos', function (Blueprint $table) {
+        Schema::create('orden_produccions', function (Blueprint $table) {
             $table->id();
+            $table->integer('cantidad_a_producir');
+            $table->string('estado');
+            $table->date('fecha_inicio_planificada');
+            $table->date('fecha_final_planificada');
 
-            $table->foreignId('id_notaingreso')        
-            ->constrained('notaingresos')
+            $table->foreignId('id_user')
+            ->constrained('users')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
 
             $table->foreignId('id_producto')
-            ->nullable()
-            ->constrained('productos')
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
-                                 
-            $table->integer('cantidad');
-            $table->decimal('costounitario',9,2);
-            $table->decimal('subtotal',9,2);     
+                ->constrained('productos')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detalleingresos');
+        Schema::dropIfExists('orden_produccions');
     }
 };

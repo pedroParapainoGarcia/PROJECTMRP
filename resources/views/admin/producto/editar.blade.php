@@ -7,21 +7,21 @@
 @stop
 
 @section('content')
-<form action="{{ route ('admin.productos.update',$producto->id)}}" method="POST">
+<form action="{{ route ('admin.producto.update',$Producto->id)}}" method="POST">
   @csrf
   @method('PUT')
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6">
       <div class="form-group">
         <label for="" class="form-label">Producto</label>
-        <input id="nombre" name="nombre" type="text" class="form-control" value="{{$producto->nombre}}">
+        <input id="nombre" name="nombre" type="text" class="form-control" value="{{$Producto->nombre}}">
       </div>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-6">
       <div class="form-group">
         <label for="" class="form-label">Descripcion</label>
-        <input id="descripcion" name="descripcion" type="text" class="form-control" value="{{$producto->descripcion}}">
+        <input id="descripcion" name="descripcion" type="text" class="form-control" value="{{$Producto->descripcion}}">
       </div>
     </div>
 
@@ -37,7 +37,7 @@
     </div>
 
   </div>
-  <a href="{{ route('admin.productos.index')}}" class="btn btn-secondary" tabindex="3">Cancelar</a>
+  <a href="{{ route('admin.producto.index')}}" class="btn btn-secondary" tabindex="3">Cancelar</a>
   <button type="submit" class="btn btn-primary" tabindex="4">Actualizar</button>
 </form>
 @stop

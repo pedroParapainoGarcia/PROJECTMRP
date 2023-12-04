@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('notaingresos', function (Blueprint $table) {
             $table->id();
-           
-            $table->date('fecha');
-            $table->decimal('costototal',9,2);
+            $table->date('fecha_compra');
+            $table->string('descripcion');
+            $table->string('costo_total');
+
             $table->foreignId('id_proveedor')
-            ->constrained('proveedors')
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();           
+                ->constrained('proveedors')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

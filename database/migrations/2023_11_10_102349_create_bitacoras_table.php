@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('long_name');
             $table->string('descripcion');
             $table->string('subject_id');
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

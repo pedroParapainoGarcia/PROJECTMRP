@@ -40,8 +40,8 @@
                             <td>{{ $nota->costototal }}</td>
 
                             <td>
-                                @foreach ($proveedores as $proveedore)
-                                    @if ($nota->id_proveedor == $proveedore->id)
+                                @foreach ($proveedores as $proveedor)
+                                    @if ($nota->id_proveedor == $proveedor->id)
                                         <h5><span>{{ $proveedore->nombre }}</span></h5>
                                     @endif
                                 @endforeach

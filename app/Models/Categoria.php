@@ -9,13 +9,13 @@ class Categoria extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'nombres'=>'required',     
-         
+    protected $fillable = [
+        'nombres' => 'required',
     ];
 
-    //relacion uno a muchos categoria-productos
-    public function productos(){
-        return $this->hasMany(Producto::class,'id');
+    //relacion uno a muchos categoria-material
+    public function materials()
+    {
+        return $this->hasMany(Material::class, 'id');
     }
 }

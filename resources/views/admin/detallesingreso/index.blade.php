@@ -32,7 +32,7 @@
 
                 <div class="col-md-4 text-center">
                     <label class="form-control-label"><strong>Trabajador</strong></label>
-                    <p>{{ $trabajador }}</p>
+                    <p>{{ $empleado}}</p>
                 </div>
             </div>
 
@@ -51,25 +51,23 @@
                     @foreach ($detalleingreso as $detalle)
                         <tr>
                             <td>
-                                @foreach ($productos as $producto)
-                                    @if ($detalle->id_producto == $producto->id)
-                                        <h5><span>{{ $producto->nombre }}</span></h5>
+                                @foreach ($Materiales as $Material)
+                                    @if ($detalle->id_Material == $Material->id)
+                                        <h5><span>{{ $Material->nombre }}</span></h5>
                                     @endif
                                 @endforeach
                             </td>
 
                             <td>
-                                @foreach ($productos as $producto)
-                                    @if ($detalle->id_producto == $producto->id)
-                                        <h5><span>{{ $producto->descripcion }}</span></h5>
+                                @foreach ($Materiales as $Material)
+                                    @if ($detalle->id_material == $Material->id)
+                                        <h5><span>{{ $Material->descripcion }}</span></h5>
                                     @endif
                                 @endforeach
                             </td>
 
-
                             <td>{{ $detalle->cantidad }}</td>
                             <td>{{ $detalle->costounitario }}</td>
-                            <td>{{ $detalle->subtotal }}</td>
 
                             <td>
                                 {{-- <form action="{{ route('admin.detallesingreso.destroy', $detalle->id) }}" method="POST">

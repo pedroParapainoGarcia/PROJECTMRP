@@ -17,13 +17,13 @@
         <thead class="bg-primary text-white">
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Codigo</th>
-                <th scope="col">Cantidad</th>
+                <th scope="col">Codigo de Lote</th>
+                <th scope="col">Cantidad a Producir</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($lotes as $lote)
+            @foreach ($lote as $lote)
                 <tr>
                     <td>{{ $lote->id }}</td>
                     <td>{{ $lote->nombre }}</td>

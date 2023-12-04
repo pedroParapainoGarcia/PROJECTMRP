@@ -9,21 +9,23 @@ class Notaingreso extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'fecha',
-        'costototal',
+        'fecha_compra',
+        'descripcion',
+        'costo_total',
         'id_proveedor',
 
     ];
 
-    //relacion uno a muchos proveedor-notaDeSalidas (inversa)
+    //relacion uno a muchos notaingreso-proveedor (inversa)
     public function proveedors()
     {
         return $this->belongsTo(Proveedor::class, 'id_proveedor');
     }
 
-    //relacion muchos a muchos notadesalida-repuestos
-    public function productos()
+    //relacion muchos a muchos notadeingreso-material
+    public function materials()
     {
-        return $this->belongsToMany(Producto::class, 'detalleingresos')->withPivot('cantidad', 'costounitario', 'subtotal');
+        return $this->belongsToMany(Material::class, 'detalleingresos')->withPivot('cantidad', 'costounitario');
     }
+
 }

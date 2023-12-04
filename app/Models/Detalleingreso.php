@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Detalleingreso extends Model
 {
     use HasFactory;
+    
     protected $table = 'detalleingresos';
 
-    // Relación muchos a uno: Detalleingresos -> Producto
-    public function producto()
+    // Relación muchos a uno: Detalleingresos -> Material
+    public function material()
     {
-        return $this->belongsTo(Producto::class, 'id_producto');
+        return $this->belongsTo(Material::class, 'id_material');
     }
 
     // Relación muchos a uno: Detalleingresos -> Notaingreso

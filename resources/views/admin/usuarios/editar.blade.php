@@ -63,7 +63,7 @@
 
      
     </div>
-    <a href="{{ route('admin.productos.index')}}" class="btn btn-secondary" tabindex="3">Cancelar</a>
+    <a href="{{ route('admin.usuarios.index')}}" class="btn btn-secondary" tabindex="3">Cancelar</a>
     <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
  
 </form>

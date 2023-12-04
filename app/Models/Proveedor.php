@@ -16,4 +16,10 @@ class Proveedor extends Model
         'pais' => 'required',
         'telefono' => 'required',
     ];
+
+    //relacion uno a muchos proveedor-notaingreso
+    public function notaingresos()
+    {
+        return $this->hasMany(Notaingreso::class, 'id');
+    }
 }
