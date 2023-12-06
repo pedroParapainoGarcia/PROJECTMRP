@@ -35,22 +35,22 @@ class DetalleingresoController extends Controller
         $empleado = Role::find($id)->name;
 
         $detalleingreso = Detalleingreso::where('id_notaingreso', $id)->get();
-        $material = Material::all();
+        $materiales = Material::all();
         $notaingreso = Notaingreso::all();
-        return view('admin.detallesingreso.index', compact('detalleingreso', 'material', 'notaingreso', 'id', 'empleado'));
+        return view('admin.detallesingreso.index', compact('detalleingreso', 'materiales', 'notaingreso', 'id', 'empleado'));
     }
 
     public function create(Request $request)
     {
-        $Materiales = Material::select('id', 'nombre', 'descripcion', 'id_categoria')->get();
+        $materiales = Material::select('id','nombre','descripcion', 'id_categoria')->get();
         $proveedores = Proveedor::all();
-        $MaterialesOptions = [];
+        $materialesOptions = [];
 
-        foreach ($Materiales as $Material) {
-            $categoria = $Material->categorias->nombres ?? 'Sin marca';
-            $descripcion = $Material->nombre . '-' . $Material->descripcion . '-' . $categoria;
+        foreach ($materiales as $material) {
+            $categoria = $material->categorias->nombres ?? 'Sin categoria';
+            $descripcion = $material->nombre . '-' . $material->descripcion . '-' . $categoria;
 
-            $materialesOptions[$Material->id] = $descripcion;
+            $materialesOptions[$material->id] = $descripcion;
         }
 
         return view('admin.detallesingreso.crear', compact('materialesOptions', 'proveedores'));
@@ -71,9 +71,8 @@ class DetalleingresoController extends Controller
 
         $id = Auth::id();
         $notaingreso = new Notaingreso();
-        $notaingreso->fecha_compra = Carbon::now();
-        $notaingreso->descripcion = $request->get('descripcion');
-        $notaingreso->costo_total = 0.00; //se actualizara mas adelante al realizar una compra
+        $notaingreso->fecha_compra = Carbon::now();       
+        $notaingreso->costototal = 0.00; //se actualizara mas adelante al realizar una compra
         $notaingreso->id_proveedor = $request->get('id_proveedor');
         $notaingreso->save();
 
@@ -146,6 +145,8 @@ class DetalleingresoController extends Controller
         $nota->delete();
 
         $notaingreso = Detalleingreso::find($id);
+        $notaingreso->delete();
+
         $bitacora = new Bitacora();
         $id = Auth::id();
         $bitacora->causer_id = $id;
@@ -156,7 +157,7 @@ class DetalleingresoController extends Controller
         $bitacora->descripcion = $informacionCifrada;
         $bitacora->subject_id = $detalleingreso->id;
         $bitacora->save();
-        $notaingreso->delete();
+        
 
         return redirect()->route('admin.notaingreso.index')->with('error', 'nota eliminada');
     }

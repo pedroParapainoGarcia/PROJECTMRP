@@ -12,30 +12,31 @@ class Producto extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'stock',
+        'costoproduccion',
+
     ];
 
     //relacion uno a muchos producto-lote
-    public function lotes()
-    {
-        return $this->hasMany(Lote::class, 'id');
-    }
+    // public function lotes()
+    // {
+    //     return $this->hasMany(Lote::class, 'id');
+    // }
 
     //relacion uno a muchos producto-orden_trabajo
-    public function orden_trabajos()
-    {
-        return $this->hasMany(OrdenTrabajo::class, 'id');
-    }
+    // public function orden_trabajos()
+    // {
+    //     return $this->hasMany(OrdenTrabajo::class, 'id');
+    // }
 
     //relacion uno a muchos producto-orden_produccion
-    public function orden_produccions()
-    {
-        return $this->hasMany(OrdenProduccion::class, 'id');
-    }
+    // public function orden_produccions()
+    // {
+    //     return $this->hasMany(OrdenProduccion::class, 'id');
+    // }
 
     //relacion muchos a muchos producto-material
-    public function materials()
+    public function material()
     {
-        return $this->belongsToMany(Material::class, 'requerimientos')->withPivot('cantidad_necesaria');
+        return $this->belongsToMany(Material::class, 'requerimientos')->withPivot('cantidad_necesaria','costounitario','subtotal');
     }
 }

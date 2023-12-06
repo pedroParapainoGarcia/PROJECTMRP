@@ -8,6 +8,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
@@ -59,13 +60,14 @@ class UserController extends Controller
         return redirect()->route('admin.usuarios.index', $user);
     }
 
+
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
-
-        return view('admin.usuarios.editar', compact('user', 'roles', 'userRole'));
+        $roles=Role::all();
+        $userRole = $user->roles->pluck('name','name')->all();
+    
+        return view('admin.usuarios.editar',compact('user','roles','userRole'));
     }
 
 
@@ -74,25 +76,25 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
-
+    
         $input = $request->all();
-        if (!empty($input['password'])) {
+        if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);
-        } else {
-            $input = Arr::except($input, array('password'));
+        }else{
+            $input = Arr::except($input,array('password'));    
         }
-
+    
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+    
         $user->assignRole($request->input('roles'));
-
-
+        
+    
         return redirect()->route('admin.usuarios.index');
     }
 

@@ -11,17 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notaingresos', function (Blueprint $table) {
+        Schema::create('unidad_medidas', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_compra');
-            $table->string('descripcion');
-            $table->string('costo_total');
-
-            $table->foreignId('id_proveedor')
-                ->constrained('proveedors')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-
+            $table->string('unidadbase',8);
+            $table->string('unidadtransaccion',15);
+            $table->decimal('multiplicador',9,2);
             $table->timestamps();
         });
     }
@@ -31,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notaingresos');
+        Schema::dropIfExists('unidad_medidas');
     }
 };

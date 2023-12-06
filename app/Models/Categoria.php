@@ -16,6 +16,6 @@ class Categoria extends Model
     //relacion uno a muchos categoria-material
     public function materials()
     {
-        return $this->hasMany(Material::class, 'id');
+        return $this->hasMany(Material::class, 'id_categoria');
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Requerimiento extends Model
 {
     use HasFactory;
-
+    
     protected $table = 'requerimiento';
 
     // Relación muchos a uno: Requerimiento -> Material
@@ -22,4 +22,5 @@ class Requerimiento extends Model
     {
         return $this->belongsTo(Producto::class, 'id_producto');
     }
+
 }

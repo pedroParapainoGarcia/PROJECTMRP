@@ -36,13 +36,13 @@
                     @foreach ($notaingreso as $nota)
                         <tr>
                             <td>{{ $nota->id }}</td>
-                            <td>{{ $nota->fecha }}</td>
+                            <td>{{ $nota->fecha_compra }}</td>
                             <td>{{ $nota->costototal }}</td>
 
                             <td>
                                 @foreach ($proveedores as $proveedor)
                                     @if ($nota->id_proveedor == $proveedor->id)
-                                        <h5><span>{{ $proveedore->nombre }}</span></h5>
+                                        <h5><span>{{ $proveedor->nombre }}</span></h5>
                                     @endif
                                 @endforeach
                             </td>

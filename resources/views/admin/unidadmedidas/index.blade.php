@@ -3,50 +3,52 @@
 @section('title', 'MRP')
 
 @section('content_header')
-    <h1>Registro de Lotes </h1>
+    <h1>Listado de unidad de medidas</h1>
 @stop
 
 @section('content')
 
-    @can('admin.lote.create')
-        <a class="btn btn-primary mb-3" href="{{ route('admin.lote.create') }}">CREAR</a>
-    @endcan
+    {{-- @can('admin.unidadmedidas.create') --}}
+        <a class="btn btn-primary mb-3" href="{{ route('admin.unidadmedidas.create') }}">CREAR</a>
+    {{-- @endcan --}}
 
-    <table id="lotes" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
+
+    <table id="categorias" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
 
         <thead class="bg-primary text-white">
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Stock</th>
+                <th scope="col">UidadBase</th>
+                <th scope="col">Unidad De Transaccion</th>
+                <th scope="col">Multiplicador</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($material as $material)
+            @foreach ($unidades as $unidad)
                 <tr>
-                    <td>{{ $material->id }}</td>
-                    <td>{{ $material->nombre }}</td>
-                    <td>{{ $material->descripcion }}</td>
+                    <td>{{ $unidad->id }}</td>
+                    <td>{{ $unidad->unidadbase }}</td>
+                    <td>{{ $unidad->unidadtransaccion }}</td>
+                    <td>{{ $unidad->multiplicador }}</td>
 
                     <td>
-                        @foreach ($material as $material)
-                            @if ($material->id_material == $material->id)
-                                <h5><span>{{ $material->nombres }}</span></h5>
-                            @endif
-                        @endforeach
-                    </td>
 
-                    <td>
-                        @can('admin.material.destroy')
-                            <form action="{{ route('admin.material.destroy', $material->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
+                        <form action="{{ route('admin.unidadmedidas.destroy', $unidad->id) }}" method="POST">
+                            {{-- @can('admin.unidadmedidas.edit') --}}
+                                <a href="{{ route('admin.unidadmedidas.edit', $unidad->id) }}" class="btn btn-info"><i
+                                        class="fa fa-edit"></i></a>
+                            {{-- @endcan --}}
+
+                            @csrf
+                            @method('DELETE')
+                            {{-- @can('admin.unidadmedidas.destroy') --}}
                                 <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
-                            </form>
-                        @endcan
+                            {{-- @endcan --}}
+                        </form>
+
                     </td>
+
                 </tr>
             @endforeach
         </tbody>
@@ -56,7 +58,6 @@
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-
 @stop
 
 @section('js')
@@ -64,12 +65,9 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
 
-    <!-- SUM()  Datatables-->
-    <script src="https://cdn.datatables.net/plug-ins/1.10.20/api/sum().js"></script>
-
     <script>
         $(document).ready(function() {
-            $('#materials').DataTable({
+            $('#categorias').DataTable({
                 //"lengthMenu": [[5,10, 50, -1], [5, 10, 50, "All"]]
                 responsive: true,
                 autoWidth: false,

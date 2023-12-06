@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('detalleingresos', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('id_notaingreso')
                 ->constrained('notaingresos')
                 ->cascadeOnUpdate()
@@ -27,7 +26,7 @@ return new class extends Migration
 
             $table->integer('cantidad');
             $table->decimal('costounitario', 9, 2);
-            
+            $table->decimal('subtotal',9,2);
             $table->timestamps();
         });
     }

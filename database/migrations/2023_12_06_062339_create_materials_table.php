@@ -15,14 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
-            $table->string('unidad_de_medida');
-            $table->decimal('stock', 9, 2)->nullable();
-
-            $table->foreignId('id_categoria')
-                ->constrained('categorias')
+            $table->foreignId('id_unidadmedida')
+                ->constrained('unidad_medidas') 
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            $table->foreignId('id_categoria')
+                ->constrained('categorias') 
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->decimal('stock', 9, 2)->nullable();
             $table->timestamps();
         });
     }

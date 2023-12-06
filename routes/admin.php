@@ -18,8 +18,10 @@ use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\Admin\ReporteController;
 use App\Http\Controllers\Admin\RequerimientoController;
 use App\Http\Controllers\Admin\SeguimientoProduccionController;
+use App\Http\Controllers\Admin\UnidadMedidaController;
 use App\Livewire\MetodoPago;
 use App\Livewire\Suscripciones;
+use App\Models\UnidadMedida;
 
 Route::resource('usuarios', UserController::class)->only(['index', 'create', 'edit', 'update', 'store', 'destroy'])->except('show')->names('admin.usuarios');
 
@@ -29,11 +31,13 @@ Route::resource('cliente', ClienteController::class)->except('show')->names('adm
 
 Route::resource('categorias', CategoriaController::class)->except('show')->names('admin.categorias');
 
+Route::resource('unidadmedidas', UnidadMedidaController::class)->except('show')->names('admin.unidadmedidas');
+
 Route::resource('producto', ProductoController::class)->except('show')->names('admin.producto');
 
-Route::resource('material', MaterialController::class)->except('show')->names('admin.material');
+Route::resource('materiales', MaterialController::class)->except('show')->names('admin.materiales');
 
-Route::resource('requerimiento', RequerimientoController::class)->except('show')->names('admin.requerimiento');
+Route::resource('requerimiento', RequerimientoController::class)->names('admin.requerimiento');
 
 Route::resource('proveedor', ProveedorController::class)->except('show')->names('admin.proveedor');
 

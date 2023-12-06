@@ -368,6 +368,12 @@ return [
                     'can' => 'admin.categorias.index'
                 ],
                 [
+                    'text' => 'UnidadMedidas',
+                    'route'  => 'admin.unidadmedidas.index',
+                    'icon' => 'fas fa-list',
+                    //'can' => 'admin.categorias.index'
+                ],
+                [
                     'text' => 'Orden de Ingreso',
                     'route'  => 'admin.notaingreso.index',
                     'icon' => 'fa fa-cart-plus',
@@ -381,7 +387,7 @@ return [
                 ],
                 [
                     'text' => 'Materiales',
-                    'route'  => 'admin.material.index',
+                    'route'  => 'admin.materiales.index',
                     'icon' => 'fas fa-shipping-fast',
                     //'can' => 'admin.material.index'
                 ],

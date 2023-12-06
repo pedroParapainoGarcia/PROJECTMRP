@@ -11,20 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('requerimientos', function (Blueprint $table) {
+        Schema::create('notaingresos', function (Blueprint $table) {
             $table->id();
-            $table->integer('cantidad_necesaria');
-
-            $table->foreignId('id_producto')
-                ->constrained('productos')
+            $table->date('fecha_compra');           
+            $table->decimal('costototal',9,2);
+            $table->foreignId('id_proveedor')
+                ->constrained('proveedors')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
-            $table->foreignId('id_material')
-                ->constrained('materials')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('requerimientos');
+        Schema::dropIfExists('notaingresos');
     }
 };

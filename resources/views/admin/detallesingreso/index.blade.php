@@ -51,26 +51,27 @@
                     @foreach ($detalleingreso as $detalle)
                         <tr>
                             <td>
-                                @foreach ($Materiales as $Material)
-                                    @if ($detalle->id_Material == $Material->id)
-                                        <h5><span>{{ $Material->nombre }}</span></h5>
+                                @foreach ($materiales as $material)
+                                    @if ($detalle->id_material == $material->id)
+                                        <h5><span>{{$material->nombre}}</span></h5>
                                     @endif
                                 @endforeach
                             </td>
 
                             <td>
-                                @foreach ($Materiales as $Material)
-                                    @if ($detalle->id_material == $Material->id)
-                                        <h5><span>{{ $Material->descripcion }}</span></h5>
+                                @foreach ($materiales as $material)
+                                    @if ($detalle->id_material == $material->id)
+                                        <h5><span>{{ $material->descripcion }}</span></h5>
                                     @endif
                                 @endforeach
                             </td>
 
                             <td>{{ $detalle->cantidad }}</td>
                             <td>{{ $detalle->costounitario }}</td>
+                            <td>{{ $detalle->subtotal }}</td>
 
                             <td>
-                                {{-- <form action="{{ route('admin.detallesingreso.destroy', $detalle->id) }}" method="POST">
+                                <form action="{{ route('admin.detallesingreso.destroy', $detalle->id) }}" method="POST">
                                    
                                         <a href="{{ route('admin.detallesingreso.edit', $detalle->id) }}" class="btn btn-info"><i
                                                 class="fa fa-edit"></i></a>
@@ -81,7 +82,7 @@
                                     @can('admin.categorias.destroy')
                                         <button type="submit" class="btn btn-info"><i class="fa fa-trash"></i></button>
                                     @endcan
-                                </form> --}}
+                                </form>
                             </td>
                         </tr>
                     @endforeach

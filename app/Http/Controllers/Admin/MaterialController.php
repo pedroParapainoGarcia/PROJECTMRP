@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Material;
 use App\Models\Bitacora;
+use App\Models\UnidadMedida;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Spatie\Permission\Models\Role;
@@ -24,15 +25,17 @@ class MaterialController extends Controller
     public function index()
     {
         $categoria = Categoria::all();
-        $material = Material::all();
-        return view('admin.material.index', compact('material', 'categoria'));
+        $unidadmedida=UnidadMedida::all();
+        $materiales = Material::all();
+        return view('admin.materiales.index', compact('materiales', 'categoria','unidadmedida'));
     }
 
     public function create()
     {
         $material = new Material();
         $categoria = Categoria::all();
-        return view('admin.material.crear', compact('material', 'categoria'));
+        $unidadmedida=UnidadMedida::all();
+        return view('admin.materiales.crear', compact('material', 'categoria','unidadmedida'));
     }
 
     public function store(Request $request)
@@ -40,7 +43,7 @@ class MaterialController extends Controller
         $this->validate(request(), [
             'nombre' => 'required',
             'descripcion' => 'required',
-            'unidad_de_medida' => 'required',
+            'id_unidadmedida' => 'required',
             'id_categoria' => 'required',
         ]);
 
@@ -48,7 +51,7 @@ class MaterialController extends Controller
 
         $material->nombre = $request->get('nombre');
         $material->descripcion = $request->get('descripcion');
-        $material->unidad_de_medida = $request->get('unidad_de_medida');
+        $material->id_unidadmedida = $request->get('id_unidadmedida');
         $material->id_categoria = $request->get('id_categoria');
         $material->stock = 0;
 
@@ -66,14 +69,15 @@ class MaterialController extends Controller
             $bitacora->subject_id = $material->id;        
             $bitacora->save();
 
-        return redirect()->route('admin.material.index');
+        return redirect()->route('admin.materiales.index');
     }
 
     public function edit(string $id)
     {
         $material = Material::find($id);
         $categoria = Categoria::all();
-        return view('admin.material.editar', compact('material', 'categoria'));
+        $unidadmedida=UnidadMedida::all();
+        return view('admin.materiales.editar', compact('material', 'categoria','unidadmedida'));
     }
 
     public function update(Request $request, string $id)
@@ -81,7 +85,7 @@ class MaterialController extends Controller
         $this->validate(request(), [
             'nombre' => 'required',
             'descripcion' => 'required',
-            'unidad_de_medida' => 'required',
+            'id_unidadmedida' => 'required',
             'id_categoria' => 'required',
         ]);
 
@@ -102,12 +106,13 @@ class MaterialController extends Controller
         $bitacora->subject_id = $material->id;        
         $bitacora->save();
 
-        return redirect()->route('admin.material.index');
+        return redirect()->route('admin.materiales.index');
     }
 
     public function destroy(string $id)
     {
-        $material = Material::find($id);
+        $material = Material::find($id);   
+        $material->delete();
 
         $bitacora = new Bitacora();   
         $id = Auth::id();       
@@ -120,7 +125,6 @@ class MaterialController extends Controller
         $bitacora->subject_id = $material->id;        
         $bitacora->save();
 
-        $material->delete();
-        return redirect()->route('admin.material.index');
+        return redirect()->route('admin.materiales.index');
     }
 }

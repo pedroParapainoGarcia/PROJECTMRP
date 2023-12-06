@@ -12,27 +12,33 @@ class Material extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'unidad_de_medida',
-        'stock',
+        'id_unidadmedida',
         'id_categoria',
+        'stock',
     ];
 
     //relacion uno a muchos categoria-material (inversa)
-    public function categorias()
+    public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'id_categoria');
     }
 
-    //relacion muchos a muchos material-producto
-    public function productos()
+    //relacion uno a muchos unidad_medidas-material (inversa)
+    public function unidad_medida()
     {
-        return $this->belongsToMany(Producto::class, 'requerimientos')->withPivot('cantidad_necesaria');
+        return $this->belongsTo(UnidadMedida::class, 'id_unidadmedida');
     }
 
-    //relacion muchos a muchos material-notadeingreso
-    public function notaingresos()
+     //relacion muchos a muchos materiales-notaingresos
+     public function notaingreso(){
+        return $this->belongsToMany(Notaingreso::class,'detalleingresos')->withPivot('cantidad','costounitario','subtotal');
+    }
+    
+
+    //relacion muchos a muchos material -productos
+    public function producto()
     {
-        return $this->belongsToMany(Notaingreso::class, 'detalleingresos')->withPivot('cantidad', 'costounitario');
+        return $this->belongsToMany(Producto::class, 'requerimientos')->withPivot('cantidad_necesaria','costounitario','subtotal');
     }
 
 }

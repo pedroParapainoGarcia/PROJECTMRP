@@ -16,140 +16,130 @@ use Illuminate\Support\Facades\Crypt;
 
 class RequerimientoController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('can:admin.requerimiento.index')->only('index');
-    //     $this->middleware('can:admin.requerimiento.create')->only('create', 'store');
-    //     $this->middleware('can:admin.requerimiento.edit')->only('edit', 'update');
-    //     $this->middleware('can:admin.requerimiento.destroy')->only('destroy');
-    // }
-    
+
+
+
     public function index(Request $request)
     {
         $id = $request->id;
 
-        $requerimiento = Requerimiento::where('id_requerimiento', $id)->get();
-        $material = Material::all();
-        $producto = Producto::all();
-        return view('admin.requerimiento.index', compact('requerimiento', 'material', 'producto', 'id'));
+        $id = Auth::id();
+        $trabajador = Role::find($id)->name;
+
+
+        $detallerequerimiento = Requerimiento::where('id_producto', $id)->get();
+        $materiales  = Material::all();
+        $productos = Producto::all();
+        return view('admin.requerimiento.index', compact('detallerequerimiento', 'materiales', 'productos', 'id', 'trabajador'));
     }
 
     public function create(Request $request)
     {
-        $Productos = Producto::select('id', 'nombre', 'descripcion')->get();
-        $material = Material::all();
-        $ProductosOptions = [];
+        $materiales = Material::select('id', 'nombre', 'descripcion', 'id_categoria')->get();
+        $materialOptions = [];
 
-        foreach ($Productos as $Producto) {
-            $descripcion = $Producto->nombre . '-' . $Producto->descripcion . '-' ;
+        foreach ($materiales as $material) {
+            $categoria = $material->categorias->nombres ?? 'Sin nombre';
+            $descripcion = $material->nombre . '-' . $material->descripcion . '-' . $categoria;
 
-            $productosOptions[$Producto->id] = $descripcion;
+            $materialOptions[$material->id] = $descripcion;
         }
 
-        return view('admin.requerimiento.crear', compact('productosOptions', 'material'));
+        return view('admin.requerimiento.crear', compact('productosOptions', 'proveedores'));
     }
+
 
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'id_producto' => 'required',
-            'cantidad_necesaria' => 'required',
-        ]);
-
-        $this->validate(request(), [
+            'nombre' => 'required',
+            'descripcion' => 'required',
             'id_material' => 'required',
-
+            'cantidad' => 'required',
+            'costounitario' => 'required'
         ]);
 
+        $this->validate(request(), []);
+
         $id = Auth::id();
-        $requerimiento = new Requerimiento();
-        $requerimiento->fecha = Carbon::now();
-        //$requerimiento->costototal = 0.00; //se actualizara mas adelante al realizar una compra
-        $requerimiento->id_material = $request->get('id_material');
-        $requerimiento->save();
+        $producto = new Producto();
+        $producto->nombre =$request->get('nombre');
+        $producto->descripcion =$request->get('descripcion');
+        $producto->costoproduccion = 0.00; //se actualizara mas adelante al realizar un requerimiento
+        
+        $producto->save();
 
-        $totalmaterial = 0;
+        $totalcosto = 0;
 
-        foreach ($request->id_producto as $key => $id_producto) {
-            $producto = Producto::find($id_producto);
+        foreach ($request->id_material as $key => $id_material) {
+            $material = Material::find($id_material);
 
-            $requerimiento = new Requerimiento();
-            $requerimiento->id_requerimiento = $requerimiento->id;
-            $requerimiento->id_producto = $producto->id;
-            $requerimiento->cantidad_necesaria = $request->cantidad_necesaria[$key];
-            $subtotal = ($requerimiento->cantidad_necesaria);
-            $requerimiento->subtotal = $subtotal;
-            $requerimiento->save();
+            $detallerequerimiento = new Requerimiento();
+            $detallerequerimiento->id_producto = $producto->id;
+            $detallerequerimiento->id_material = $material->id;
+            $detallerequerimiento->cantidad = $request->cantidad[$key];
+            $detallerequerimiento->costounitario = $request->costounitario[$key];
+            $subtotal = ($detallerequerimiento->costounitario * $detallerequerimiento->cantidad);
+            $detallerequerimiento->subtotal = $subtotal;
+            $detallerequerimiento->save();
 
-            $totalmaterial += $subtotal;
+            $totalcosto += $subtotal;
 
-            //actualizamos el stock del Producto
-            $producto->stock += $requerimiento->cantidad_necesaria;
-            $producto->save();
-        }
-
-        $requerimiento->subtotal = $totalmaterial;
-        $requerimiento->save();
-
-        $bitacora = new Bitacora();
-        $id = Auth::id();
-        $bitacora->causer_id = $id;
-        $bitacora->name = Role::find($id)->name;
-        $bitacora->long_name = 'requerimiento';
-        $informacionDeBitacora = 'Registró';
-        $informacionCifrada = Crypt::encrypt($informacionDeBitacora);
-        $bitacora->descripcion = $informacionCifrada;
-        $bitacora->subject_id = $requerimiento->id;
-        $bitacora->save();
-
-
-        return redirect()->route('admin.requerimiento.index')->with('success', 'Ingreso de Producto Registrado Correctamente');
-    }
-
-    public function show(string $id)
-    {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-
-    public function destroy(string $id)
-    {
-        $nota = Material::find($id);
-        if (!$nota) {
-            return redirect()->route('admin.material.index')->with('error', 'ingreso no encontrada');
-        }
-        Requerimiento::where('id_material', $nota->id)->delete();
-        foreach ($nota->detalles as $requerimiento) {
-            $material = Material::find($requerimiento->id_material);
-            $material->stock += $requerimiento->cantidad;
+            //actualizamos el stock del producto
+            $material->stock += $detallerequerimiento->cantidad;
             $material->save();
         }
-        $nota->delete();
 
-        $material = Requerimiento::find($id);
-        $bitacora = new Bitacora();
-        $id = Auth::id();
-        $bitacora->causer_id = $id;
-        $bitacora->name = Role::find($id)->name;
-        $bitacora->long_name = 'Requerimiento';
-        $informacionDeBitacora = 'Eliminó';
-        $informacionCifrada = Crypt::encrypt($informacionDeBitacora);
-        $bitacora->descripcion = $informacionCifrada;
-        $bitacora->subject_id = $requerimiento->id;
-        $bitacora->save();
-        $material->delete();
+        $producto->costoproduccion = $totalcosto;
+        $producto->save();
 
-        return redirect()->route('admin.material.index')->with('error', 'nota eliminada');
+       return redirect()->route('admin.requerimiento.index')->with('success', 'regigistro de requerimiento exitosamente');
     }
-    
+
+    /**
+     * Display the specified resource.
+     */
+    public function show()
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit()
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update()
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $producto = Producto::find($id);
+        if (!$producto) {
+            return redirect()->route('admin.producto.index')->with('error', 'producto no encontrado');
+        }
+        Requerimiento::where('id_producto', $producto->id)->delete();
+        foreach ($producto->detalles as $detallerequerimiento) {
+            $material = Material::find($detallerequerimiento->id_producto);
+            $material->stock += $detallerequerimiento->cantidad;
+            $material->save();
+        }
+        $producto->delete(); 
+       
+
+        return redirect()->route('admin.producto.index')->with('error', 'nota eliminada');
+    }
+
+   
 }
